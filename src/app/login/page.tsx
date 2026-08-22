@@ -2,17 +2,20 @@
 
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
+import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!email.trim()) {
-      setMessage('Please enter your email address.')
+    if (!email.trim() || !password.trim()) {
+      setMessage('Please enter both email and password.')
       return
     }
 
@@ -20,18 +23,16 @@ export default function LoginPage() {
     setMessage('')
 
     try {
-      const { error } = await supabase.auth.signInWithOtp({
+      const { error } = await supabase.auth.signInWithPassword({
         email: email.trim(),
-        options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
-        },
+        password: password,
       })
 
       if (error) {
         setMessage(error.message)
       } else {
-        setMessage(`✅ Login link sent! Please check ${email.trim()} for the magic link.`)
-        setEmail('')
+        router.push('/')
+        router.refresh()
       }
     } catch {
       setMessage('An error occurred. Please try again later.')
@@ -50,7 +51,7 @@ export default function LoginPage() {
             Ouyang-Wu 家庭网站
           </h1>
           <p className="text-gray-500 mt-2 text-sm">
-            Sign in with your email to continue
+            Sign in with your email and password
           </p>
         </div>
 
@@ -74,12 +75,30 @@ export default function LoginPage() {
             />
           </div>
 
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-1.5"
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition text-gray-800"
+              disabled={loading}
+            />
+          </div>
+
           <button
             type="submit"
             disabled={loading}
             className="w-full py-3 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold hover:from-purple-700 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
           >
-            {loading ? 'Sending...' : 'Send Magic Link'}
+            {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
 
