@@ -1,10 +1,14 @@
-// Read the HTML content generated from original index.html
-import htmlContent from '@/data/family-website-content.js'
-
-/**
- * Returns the family website HTML content ready for rendering.
- * The CSS is in globals.css and the scroll handler is in ScrollHandler.tsx.
- */
-export function getFamilyWebsiteHtml(): string {
-  return htmlContent
+// Read the HTML content from the public directory at runtime
+export async function getFamilyWebsiteHtml(): Promise<string> {
+  try {
+    const html = await fetch('/family-website.html').then(r => r.text())
+    // Extract body content only (skip <!DOCTYPE>, <html>, <head>, <body> tags)
+    const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i)
+    if (bodyMatch) {
+      return bodyMatch[1]
+    }
+    return html
+  } catch {
+    return '<p>Error loading website content. Please try refreshing.</p>'
+  }
 }

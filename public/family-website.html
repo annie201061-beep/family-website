@@ -1,11 +1,121 @@
-// Auto-generated from original index.html - do not edit manually
-const htmlContent = `
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ouyang-Wu 家庭网站</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; background: #f0f2f5; color: #333; line-height: 1.6; }
+
+  /* Header */
+  .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; padding: 50px 20px; }
+  .hero h1 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+  .hero p { font-size: 1.2em; opacity: 0.9; }
+  .hero .family-icon { font-size: 3em; margin-bottom: 10px; }
+  .last-updated { font-size: 0.85em; opacity: 0.7; margin-top: 15px; }
+
+  /* Navigation */
+  .nav { display: flex; justify-content: center; gap: 5px; padding: 15px 20px; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; flex-wrap: wrap; }
+  .nav a { padding: 10px 20px; text-decoration: none; color: #555; border-radius: 25px; font-size: 0.95em; font-weight: 500; transition: all 0.3s; }
+  .nav a:hover, .nav a.active { background: #667eea; color: white; }
+
+  /* Container */
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+  /* Section */
+  .section { background: white; border-radius: 16px; padding: 25px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .section-title { font-size: 1.4em; font-weight: 700; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #667eea; color: #2c3e50; }
+  .section-title .emoji { margin-right: 8px; }
+
+  /* Cards */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+  .card { background: #f8f9fa; border-radius: 12px; padding: 18px; border-left: 4px solid #667eea; transition: transform 0.2s; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .card h3 { font-size: 1.1em; margin-bottom: 8px; color: #2c3e50; }
+  .card .date { font-size: 0.85em; color: #667eea; font-weight: 600; margin-bottom: 6px; }
+  .card p { font-size: 0.9em; color: #555; }
+  .card .location { font-size: 0.85em; color: #888; margin-top: 5px; }
+
+  /* Priority badges */
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.75em; font-weight: 700; margin-left: 8px; }
+  .badge-p0 { background: #fde8e8; color: #c0392b; }
+  .badge-p1 { background: #fef5e7; color: #b7950b; }
+  .badge-p2 { background: #e8f8f0; color: #1e8449; }
+  .badge-school { background: #ebf5fb; color: #2471a3; }
+  .badge-done { background: #e8f8f0; color: #1e8449; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before { content: ''; position: absolute; left: 12px; top: 0; bottom: 0; width: 3px; background: #ddd; border-radius: 3px; }
+  .timeline-item { position: relative; margin-bottom: 20px; }
+  .timeline-item::before { content: ''; position: absolute; left: -22px; top: 5px; width: 14px; height: 14px; border-radius: 50%; background: #667eea; border: 3px solid white; box-shadow: 0 0 0 2px #667eea; }
+  .timeline-item.done::before { background: #27ae60; box-shadow: 0 0 0 2px #27ae60; }
+  .timeline-item.urgent::before { background: #e74c3c; box-shadow: 0 0 0 2px #e74c3c; }
+  .timeline-date { font-weight: 700; color: #667eea; font-size: 0.9em; }
+  .timeline-item.done .timeline-date { color: #27ae60; }
+  .timeline-item.urgent .timeline-date { color: #e74c3c; }
+  .timeline-content { background: #f8f9fa; border-radius: 8px; padding: 12px 15px; margin-top: 5px; }
+
+  /* Kid profile */
+  .profile { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
+  .avatar { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5em; color: white; font-weight: bold; flex-shrink: 0; }
+  .avatar.dabao { background: linear-gradient(135deg, #3498db, #2980b9); }
+  .avatar.erbao { background: linear-gradient(135deg, #27ae60, #1e8449); }
+  .avatar.sanbao { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+  .profile-info h2 { font-size: 1.4em; color: #2c3e50; }
+  .profile-info .school { color: #666; font-size: 0.95em; }
+  .profile-info .goal { color: #667eea; font-weight: 600; font-size: 0.9em; margin-top: 3px; }
+
+  /* Schedule table */
+  .schedule-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9em; }
+  .schedule-table th { background: #34495e; color: white; padding: 10px; text-align: center; font-weight: 600; }
+  .schedule-table th:first-child { text-align: left; }
+  .schedule-table td { padding: 8px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
+  .schedule-table tr:nth-child(even) { background: #fafbfc; }
+  .schedule-table .date-cell { background: #ecf0f1 !important; font-weight: 700; text-align: center !important; }
+  .schedule-table .date-cell .day { font-size: 1.1em; color: #2c3e50; }
+  .schedule-table .date-cell .date-num { font-size: 0.85em; color: #7f8c8d; }
+
+  /* Checklist */
+  .checklist { list-style: none; }
+  .checklist li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 10px; font-size: 0.9em; }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist .check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #ddd; display: inline-flex; align-items: center; justify-content: center; font-size: 0.8em; flex-shrink: 0; }
+  .checklist .check.done { background: #27ae60; color: white; border-color: #27ae60; }
+  .checklist .check.pending { background: #fff; }
+
+  /* Photo gallery placeholder */
+  .photo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+  .photo-placeholder { background: linear-gradient(135deg, #667eea22, #764ba222); border-radius: 12px; height: 120px; display: flex; align-items: center; justify-content: center; font-size: 2em; color: #667eea; border: 2px dashed #667eea44; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 30px; color: #999; font-size: 0.85em; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 1.8em; }
+    .hero p { font-size: 1em; }
+    .nav a { padding: 8px 14px; font-size: 0.85em; }
+    .section { padding: 18px; }
+    .card-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Print */
+  @media print {
+    .nav { display: none; }
+    .section { box-shadow: none; page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
 <!-- ========== HEADER ========== -->
 <div class="hero">
   <div class="family-icon">👨‍👩‍👦‍👦</div>
   <h1>Ouyang-Wu 家庭网站</h1>
   <p>我们的西雅图新生活 🏔️</p>
-  <div class="last-updated">最后更新：2026年8月9日</div>
+  <div class="last-updated">最后更新：2026年8月22日</div>
 </div>
 
 <!-- ========== NAVIGATION ========== -->
@@ -83,55 +193,31 @@ const htmlContent = `
       <div class="timeline-date">8月9日</div>
       <div class="timeline-content">✅ 完成 MIHS RSVP 主表格（Skyward）</div>
     </div>
-    <div class="timeline-item urgent">
+    <div class="timeline-item done">
       <div class="timeline-date">8月13日（周四）</div>
-      <div class="timeline-content">
-        <strong>📝 ELD Assessment (WIDA Screener)</strong><br>
-        ⏰ 下午 2:00 PM<br>
-        📍 MIHS 正门前台 Check-in<br>
-        👤 Sunny 老师接引
-      </div>
+      <div class="timeline-content">✅ ELD Assessment (WIDA Screener) 已完成</div>
+    </div>
+    <div class="timeline-item done">
+      <div class="timeline-date">8月14日（周五）</div>
+      <div class="timeline-content">✅ iReady Math Pre-Assessment 已完成</div>
+    </div>
+    <div class="timeline-item done">
+      <div class="timeline-date">8月14日（周五）下午 3:00</div>
+      <div class="timeline-content">✅ MIHS 课表在 Skyward 解锁</div>
+    </div>
+    <div class="timeline-item done">
+      <div class="timeline-date">8月15日（周六）</div>
+      <div class="timeline-content">✅ 家庭会议：大宝四年美高规划讨论</div>
+    </div>
+    <div class="timeline-item done">
+      <div class="timeline-date">8月19日（周三）</div>
+      <div class="timeline-content">✅ 选课会议 10:00-10:30 + Fees & Photos Day</div>
+    </div>
+    <div class="timeline-item done">
+      <div class="timeline-date">8月21日（周五）</div>
+      <div class="timeline-content">✅ New Student Welcome 1:00–2:30</div>
     </div>
     <div class="timeline-item urgent">
-      <div class="timeline-date">8月14日（周五）</div>
-      <div class="timeline-content">
-        <strong>📝 iReady Math Pre-Assessment</strong><br>
-        ⏰ 中午 12:00 PM（1.5-3 小时）<br>
-        📍 MIHS 正门 → Counseling Office<br>
-        👤 找 Robin Moore 或 Monica Moline<br>
-        📌 无需自带电脑或文具
-      </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">8月14日（周五）下午 3:00</div>
-      <div class="timeline-content">💻 MIHS 课表在 Skyward 解锁！</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">8月15日（周六）</div>
-      <div class="timeline-content">
-        👨‍👩‍👧‍👦 <strong>家庭会议：大宝四年美高规划讨论</strong>（与爸爸、姗姗）<br>
-        📋 讨论内容：9-12年级选课路径、UW录取要求、课外活动策略、AP路线图<br>
-        📄 准备材料：<code>大宝_四年美高规划.html</code>（打印或一起看）
-      </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">8月19日（周三）</div>
-      <div class="timeline-content">
-        <strong>📅 10:00-10:30 — 选课会议</strong>（Academic Counselor 确认课表）<br>
-        <strong>📅 10:30 以后 — Fees & Photos Day</strong><br>
-        📸 拍照 / 领学生证 / 领 Laptop / 领 Yondr 手机袋<br>
-        💳 通过 InTouch 预缴 ASB 费用
-      </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">8月21日（周五）</div>
-      <div class="timeline-content">
-        <strong>🎉 New Student Welcome</strong><br>
-        ⏰ 下午 1:00 – 2:30<br>
-        📍 MIHS
-      </div>
-    </div>
-    <div class="timeline-item">
       <div class="timeline-date">8月24日（周一）</div>
       <div class="timeline-content">🏫 9年级 Orientation 8:00 – 11:00 AM @ MIHS</div>
     </div>
@@ -141,7 +227,7 @@ const htmlContent = `
     </div>
     <div class="timeline-item">
       <div class="timeline-date">8月26日（周三）</div>
-      <div class="timeline-content">🏫 MIHS 开学第2天（晚 Start 8:45 + Welcome Assembly）</div>
+      <div class="timeline-content">🏫 MIHS 第2天（晚 Start 8:45 + Welcome Assembly）</div>
     </div>
   </div>
 
@@ -182,25 +268,15 @@ const htmlContent = `
       <div class="timeline-date">8月9日</div>
       <div class="timeline-content">✅ 回复 Marcy 邮件（房租 + 水电说明 + 爸爸联系方式）</div>
     </div>
-    <div class="timeline-item urgent">
+    <div class="timeline-item done">
       <div class="timeline-date">8月13日（周四）</div>
-      <div class="timeline-content">
-        <strong>📝 ELD Assessment (WIDA Screener)</strong><br>
-        ⏰ 上午 10:30<br>
-        📍 IMS 正门前台 Check-in<br>
-        👤 Chantel 老师在办公室接待<br>
-        🗺️ SE 40th St → 84th Ave SE → 前台
-      </div>
+      <div class="timeline-content">✅ ELD Assessment (WIDA Screener) 已完成</div>
     </div>
-    <div class="timeline-item">
+    <div class="timeline-item done">
       <div class="timeline-date">8月18日（周二）</div>
-      <div class="timeline-content">
-        <strong>💻 上午 8:00</strong> — IMS 课表在 Skyward 解锁<br>
-        <strong>📸 下午 2:00-3:30</strong> — IMS Back to School Day（Lo-Z 姓氏 Wu）<br>
-        📋 领课表 / 学生证照片 / 逛校园 / Yondr 手机袋 / 秋季体育咨询
-      </div>
+      <div class="timeline-content">✅ 课表 Skyward 解锁 + Back to School Day 2:00-3:30</div>
     </div>
-    <div class="timeline-item">
+    <div class="timeline-item done">
       <div class="timeline-date">8月21日（周五）</div>
       <div class="timeline-content">✅ Fine Arts Elective 选课已提交</div>
     </div>
@@ -282,7 +358,7 @@ const htmlContent = `
 
 <!-- ========== SCHEDULE OVERVIEW ========== -->
 <div id="schedule" class="section">
-  <div class="section-title"><span class="emoji">📅</span>日程总览（8月12日 – 8月28日）</div>
+  <div class="section-title"><span class="emoji">📅</span>日程总览（更新于 8月22日）</div>
 
   <table class="schedule-table">
     <thead>
@@ -358,7 +434,7 @@ const htmlContent = `
       </tr>
       <tr>
         <td class="date-cell"><div class="day">周六</div><div class="date-num">8/22</div></td>
-        <td>😴 休息</td><td>😴 休息</td><td>🏠 休息</td>
+        <td>🏠 休息 / 最终准备</td><td>🏠 休息 / 最终准备</td><td>🏠 准备开学</td>
       </tr>
       <tr>
         <td class="date-cell"><div class="day">周日</div><div class="date-num">8/23</div></td>
@@ -381,6 +457,12 @@ const htmlContent = `
         <td><span class="badge badge-p0">开学</span> MIHS 第2天（晚Start 8:45）</td>
         <td><span class="badge badge-p0">开学</span> IMS 第1天！6年级 8:25-1:20</td>
         <td>🚨 <strong>两个都开学！</strong></td>
+      </tr>
+      <tr>
+        <td class="date-cell"><div class="day">周五</div><div class="date-num">8/28</div></td>
+        <td>📚 MIHS 第4天</td>
+        <td>📚 IMS 第2天</td>
+        <td>🏠 第一周结束！</td>
       </tr>
     </tbody>
   </table>
@@ -621,6 +703,29 @@ const htmlContent = `
 </div>
 
 <!-- ========== SMOOTH SCROLL ========== -->
-`;
+<script>
+  document.querySelectorAll('.nav a').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.nav a').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+  // Highlight nav on scroll
+  window.addEventListener('scroll', () => {
+    const sections = ['home','shanru','javis','sanbao','schedule','gallery','todo'];
+    let current = 'home';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop - 200 <= window.scrollY) current = id;
+    });
+    document.querySelectorAll('.nav a').forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
 
-export default htmlContent;
+</body>
+</html>
