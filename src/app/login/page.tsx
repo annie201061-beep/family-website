@@ -2,14 +2,12 @@
 
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
-import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -31,8 +29,7 @@ export default function LoginPage() {
       if (error) {
         setMessage(error.message)
       } else {
-        router.push('/')
-        router.refresh()
+        window.location.href = '/'
       }
     } catch {
       setMessage('An error occurred. Please try again later.')
