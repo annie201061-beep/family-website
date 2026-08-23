@@ -1,4 +1,4 @@
-// Auto-generated from index.html — edit the HTML source, then re-run the sync
+// Auto-generated from index.html — run `npm run build:content` to refresh
 const htmlContent = `
 <!-- ========== HEADER ========== -->
 <div class="hero">
@@ -591,6 +591,8 @@ const htmlContent = `
   <p style="margin-top:5px;">💡 需要更新内容？联系 Yang Huirong</p>
   <p style="margin-top:10px; font-size:0.8em;">Based on IMS / MIHS official schedules & school emails</p>
 </div>
+
+
 `;
 
 export function getFamilyWebsiteHtml() {
