@@ -1,4 +1,4 @@
-// Auto-generated from index.html — run `npm run build:content` to refresh
+// Auto-generated from index.html -- run `npm run build:content` to refresh
 const htmlContent = `
 <!-- ========== HEADER ========== -->
 <div class="hero">
@@ -26,7 +26,7 @@ const htmlContent = `
   <div class="section-title"><span class="emoji">🏠</span>欢迎来到我们的家</div>
 
   <div class="profile">
-    <div class="avatar dabao">爸</div>
+    <div class="avatar dabao">J</div>
     <div class="profile-info">
       <h2>Wu Jiaoren (吴嘉人)</h2>
       <div class="school">👨‍💼 家长</div>
@@ -34,7 +34,7 @@ const htmlContent = `
     </div>
   </div>
   <div class="profile">
-    <div class="avatar erbao">妈</div>
+    <div class="avatar erbao">A</div>
     <div class="profile-info">
       <h2>Yang Huirong (杨慧蓉)</h2>
       <div class="school">👩‍💼 家长</div>
@@ -588,7 +588,7 @@ const htmlContent = `
 <div class="footer">
   <p>👨‍👩‍👦‍👦 Ouyang-Wu Family Website</p>
   <p>📍 Mercer Island, WA  │  📅 2026-27 学年</p>
-  <p style="margin-top:5px;">💡 需要更新内容？联系 Yang Huirong</p>
+  <p style="margin-top:5px;">💡 需要更新内容？联系 Joren 或 Annie</p>
   <p style="margin-top:10px; font-size:0.8em;">Based on IMS / MIHS official schedules & school emails</p>
 </div>
 

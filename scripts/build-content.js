@@ -5,8 +5,8 @@ const srcFile = '/Users/rongrong/三个孩子美国升学规划/family-website/i
 const outFile = path.join(process.cwd(), 'src', 'data', 'family-website-content.js')
 
 if (!fs.existsSync(srcFile)) {
-  console.warn(`⚠️  Source file not found: ${srcFile}`)
-  console.warn('   Skipping content sync. Run this script on your local machine.`)
+  console.warn('Source file not found:', srcFile)
+  console.warn('Skipping content sync. Run this script on your local machine.')
   process.exit(0)
 }
 
@@ -30,7 +30,7 @@ body = body.replace(/`/g, '\\`')
 body = body.replace(/\$\{/g, '\\${')
 
 const lines = [
-  '// Auto-generated from index.html — run `npm run build:content` to refresh',
+  '// Auto-generated from index.html -- run `npm run build:content` to refresh',
   'const htmlContent = `',
   body,
   '`;',
@@ -41,6 +41,4 @@ const lines = [
 ]
 
 fs.writeFileSync(outFile, lines.join('\n'), 'utf-8')
-console.log(
-  `Done! Synced ${body.length} chars → ${path.relative(process.cwd(), outFile)}`
-)
+console.log('Done! Synced ' + body.length + ' chars -> ' + path.relative(process.cwd(), outFile))
