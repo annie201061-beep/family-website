@@ -28,7 +28,7 @@ const htmlContent = `
   <div class="profile">
     <div class="avatar dabao">J</div>
     <div class="profile-info">
-      <h2>Wu Jiaoren (吴嘉人)</h2>
+      <h2>Joren</h2>
       <div class="school">👨‍💼 家长</div>
       <div class="goal">📍 西雅图 Mercer Island</div>
     </div>
@@ -36,7 +36,7 @@ const htmlContent = `
   <div class="profile">
     <div class="avatar erbao">A</div>
     <div class="profile-info">
-      <h2>Yang Huirong (杨慧蓉)</h2>
+      <h2>Annie</h2>
       <div class="school">👩‍💼 家长</div>
       <div class="goal">📍 西雅图 Mercer Island</div>
     </div>
