@@ -4,6 +4,12 @@ import path from 'path'
 const srcFile = '/Users/rongrong/三个孩子美国升学规划/family-website/index.html'
 const outFile = path.join(process.cwd(), 'src', 'data', 'family-website-content.js')
 
+if (!fs.existsSync(srcFile)) {
+  console.warn(`⚠️  Source file not found: ${srcFile}`)
+  console.warn('   Skipping content sync. Run this script on your local machine.`)
+  process.exit(0)
+}
+
 const html = fs.readFileSync(srcFile, 'utf-8')
 
 const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i)
