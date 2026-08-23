@@ -38,13 +38,10 @@ export default function LoginPage() {
         return
       }
 
-      // Set a persistent session cookie (7 days) — middleware checks this
-      const maxAge = 7 * 24 * 60 * 60
-      document.cookie = `family_session=1; path=/; max-age=${maxAge}; SameSite=Lax`
-
-      // Also set Supabase tokens as cookies for the client library
-      setCookie('sb-access-token', data.session.access_token)
-      setCookie('sb-refresh-token', data.session.refresh_token)
+      // Set Supabase token cookies for the middleware to check
+      // These expire in ~1 hour — after that, password is required again
+      setCookie('sb-access-token', data.session.access_token, 1)
+      setCookie('sb-refresh-token', data.session.refresh_token, 7)
 
       window.location.href = '/'
     } catch {

@@ -29,13 +29,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // Check for family session cookie (set on successful login)
-  const sessionCookie = request.cookies.get('family_session')
-  if (sessionCookie) {
-    return NextResponse.next()
-  }
-
-  // Also accept Supabase access token as alternative (magic link flow)
+  // Check Supabase access token (expires in ~1 hour, no persistent session)
   const accessToken = request.cookies.get('sb-access-token')
   if (accessToken) {
     const payload = parseJwt(accessToken.value)
