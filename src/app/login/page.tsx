@@ -38,11 +38,14 @@ export default function LoginPage() {
         return
       }
 
-      // Set session cookies directly — middleware reads these
+      // Set a persistent session cookie (7 days) — middleware checks this
+      const maxAge = 7 * 24 * 60 * 60
+      document.cookie = `family_session=1; path=/; max-age=${maxAge}; SameSite=Lax`
+
+      // Also set Supabase tokens as cookies for the client library
       setCookie('sb-access-token', data.session.access_token)
       setCookie('sb-refresh-token', data.session.refresh_token)
 
-      // Hard redirect — cookies are now set, middleware will let us in
       window.location.href = '/'
     } catch {
       setMessage('An error occurred. Please try again later.')

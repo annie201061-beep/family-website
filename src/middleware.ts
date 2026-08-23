@@ -22,33 +22,30 @@ function parseJwt(token: string): { exp?: number } | null {
 }
 
 export function middleware(request: NextRequest) {
-  const accessToken = request.cookies.get('sb-access-token')?.value
   const { pathname } = request.nextUrl
 
-  // Allow access to login page and auth callback without authentication
+  // Allow login page and auth callback without authentication
   if (pathname === '/login' || pathname.startsWith('/auth/callback')) {
-    // If already logged in, redirect to home
-    if (accessToken) {
-      const payload = parseJwt(accessToken)
-      if (payload?.exp && Date.now() < payload.exp * 1000) {
-        return NextResponse.redirect(new URL('/', request.url))
-      }
-    }
     return NextResponse.next()
   }
 
-  // All other routes require authentication
-  if (!accessToken) {
-    return NextResponse.redirect(new URL('/login', request.url))
+  // Check for family session cookie (set on successful login)
+  const sessionCookie = request.cookies.get('family_session')
+  if (sessionCookie) {
+    return NextResponse.next()
   }
 
-  const payload = parseJwt(accessToken)
-  if (!payload?.exp || Date.now() >= payload.exp * 1000) {
-    // Token expired
-    return NextResponse.redirect(new URL('/login', request.url))
+  // Also accept Supabase access token as alternative (magic link flow)
+  const accessToken = request.cookies.get('sb-access-token')
+  if (accessToken) {
+    const payload = parseJwt(accessToken.value)
+    if (payload?.exp && Date.now() < payload.exp * 1000) {
+      return NextResponse.next()
+    }
   }
 
-  return NextResponse.next()
+  // No valid session — redirect to login
+  return NextResponse.redirect(new URL('/login', request.url))
 }
 
 export const config = {
