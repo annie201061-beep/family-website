@@ -11,9 +11,9 @@ const htmlContent = `
 <!-- ========== NAVIGATION ========== -->
 <div class="nav">
   <a href="#home" class="active">🏠 首页</a>
-  <a href="#shanru">👦 大宝 Shanru</a>
+  <a href="#shanru">👦 Elsa</a>
   <a href="#javis">👦 二宝 Javis</a>
-  <a href="#sanbao">👶 三宝</a>
+  <a href="#sanbao">👶 Cyrus</a>
   <a href="#schedule">📅 日程总览</a>
   <a href="#gallery">📸 相册</a>
   <a href="#todo">📋 待办</a>
@@ -44,7 +44,7 @@ const htmlContent = `
 
   <div class="card-grid" style="margin-top: 20px;">
     <div class="card" style="border-left-color: #3498db;">
-      <h3>👦 大宝 Shanru Wu</h3>
+      <h3>👦 Elsa Wu</h3>
       <div class="date">9 年级 → MIHS → 🎯 UW</div>
       <p>English 9 / World History / Math / AP Mandarin / Choir</p>
       <div class="location">🏫 Mercer Island High School</div>
@@ -56,7 +56,7 @@ const htmlContent = `
       <div class="location">🏫 Islander Middle School</div>
     </div>
     <div class="card" style="border-left-color: #e74c3c;">
-      <h3>👶 三宝</h3>
+      <h3>👶 Cyrus</h3>
       <div class="date">3 岁 → 幼儿园 → 🎯 MIT / 哈佛</div>
       <p>双语启蒙 / 数学游戏 / 阅读习惯</p>
       <div class="location">🏫 待确认</div>
@@ -66,12 +66,12 @@ const htmlContent = `
 
 <!-- ========== SHANRU ========== -->
 <div id="shanru" class="section">
-  <div class="section-title"><span class="emoji">👦</span>大宝 Shanru — MIHS 9年级</div>
+  <div class="section-title"><span class="emoji">👦</span>Elsa — MIHS 9年级</div>
 
   <div class="profile">
-    <div class="avatar dabao">S</div>
+    <div class="avatar dabao">E</div>
     <div class="profile-info">
-      <h2>Shanru Wu</h2>
+      <h2>Elsa Wu</h2>
       <div class="school">9th Grade, Mercer Island High School</div>
       <div class="goal">🎯 目标：UW 华盛顿大学</div>
     </div>
@@ -210,12 +210,12 @@ const htmlContent = `
 
 <!-- ========== SANBAO ========== -->
 <div id="sanbao" class="section">
-  <div class="section-title"><span class="emoji">👶</span>三宝 — 幼儿园</div>
+  <div class="section-title"><span class="emoji">👶</span>Cyrus — 幼儿园</div>
 
   <div class="profile">
-    <div class="avatar sanbao">三</div>
+    <div class="avatar sanbao">C</div>
     <div class="profile-info">
-      <h2>三宝</h2>
+      <h2>Cyrus</h2>
       <div class="school">3 岁，幼儿园</div>
       <div class="goal">🎯 目标：MIT / 哈佛 / 伯克利</div>
     </div>
@@ -254,7 +254,7 @@ const htmlContent = `
     <thead>
       <tr>
         <th>日期</th>
-        <th>👦 大宝 Shanru (MIHS)</th>
+        <th>👦 Elsa (MIHS)</th>
         <th>👦 二宝 Javis (IMS)</th>
         <th>👨‍👩‍👦 家长行动</th>
       </tr>
@@ -388,16 +388,16 @@ const htmlContent = `
 
   <h3 style="margin: 15px 0 10px; color: #b7950b;">🟡 P1 — 重要</h3>
   <ul class="checklist">
-    <li><span class="check pending">○</span> 8/13 WIDA 英语测试 — Javis 10:30 / Shanru 14:00</li>
-    <li><span class="check pending">○</span> 8/14 iReady Math — Shanru 12:00</li>
-    <li><span class="check pending">○</span> 8/14 下午 3:00 查看 Shanru MIHS 课表（Skyward）</li>
+    <li><span class="check pending">○</span> 8/13 WIDA 英语测试 — Javis 10:30 / Elsa 14:00</li>
+    <li><span class="check pending">○</span> 8/14 iReady Math — Elsa 12:00</li>
+    <li><span class="check pending">○</span> 8/14 下午 3:00 查看 Elsa MIHS 课表（Skyward）</li>
     <li><span class="check pending">○</span> 8/18 上午 8:00 查看 Javis IMS 课表（Skyward）</li>
-    <li><span class="check pending">○</span> 8/19 Shanru 选课会议 10:00-10:30 + Fees & Photos</li>
+    <li><span class="check pending">○</span> 8/19 Elsa 选课会议 10:00-10:30 + Fees & Photos</li>
     <li><span class="check pending">○</span> 8/18 IMS Back to School Day（Lo-Z 姓氏 2:00-3:30）</li>
     <li><span class="check pending">○</span> 二宝：用学区账号登录 Skyward，确认 Phone-Free Policy RSVP</li>
-    <li><span class="check pending">○</span> Shanru 完成 Skyward Student Access 确认 Phone-Free Policy</li>
+    <li><span class="check pending">○</span> Elsa 完成 Skyward Student Access 确认 Phone-Free Policy</li>
     <li><span class="check pending">○</span> 确认大宝疫苗记录</li>
-    <li><span class="check pending">○</span> 确认三宝幼儿园注册</li>
+    <li><span class="check pending">○</span> 确认Cyrus幼儿园注册</li>
   </ul>
 
   <h3 style="margin: 15px 0 10px; color: #1e8449;">🟢 P2 — 建议</h3>
