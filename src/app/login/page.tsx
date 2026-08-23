@@ -21,19 +21,37 @@ export default function LoginPage() {
     setMessage('')
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password: password,
       })
 
-      if (error) {
-        setMessage(error.message)
-      } else {
-        window.location.href = '/'
+      if (error || !data.session) {
+        setMessage(error?.message || 'Login failed.')
+        setLoading(false)
+        return
       }
+
+      // Set the session cookie so the middleware can recognize the user
+      const res = await fetch('/api/auth/session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_token: data.session.access_token,
+          refresh_token: data.session.refresh_token,
+        }),
+      })
+
+      if (!res.ok) {
+        setMessage('Session error. Please try again.')
+        setLoading(false)
+        return
+      }
+
+      // Hard redirect — cookie is set, middleware will let us in
+      window.location.href = '/'
     } catch {
       setMessage('An error occurred. Please try again later.')
-    } finally {
       setLoading(false)
     }
   }
