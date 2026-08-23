@@ -3,6 +3,12 @@
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 
+function setCookie(name: string, value: string, days = 7) {
+  const maxAge = days * 24 * 60 * 60
+  // URL-encode to handle special chars in JWT tokens
+  document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAge}; SameSite=Lax`
+}
+
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -32,23 +38,11 @@ export default function LoginPage() {
         return
       }
 
-      // Set the session cookie so the middleware can recognize the user
-      const res = await fetch('/api/auth/session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_token: data.session.access_token,
-          refresh_token: data.session.refresh_token,
-        }),
-      })
+      // Set session cookies directly — middleware reads these
+      setCookie('sb-access-token', data.session.access_token)
+      setCookie('sb-refresh-token', data.session.refresh_token)
 
-      if (!res.ok) {
-        setMessage('Session error. Please try again.')
-        setLoading(false)
-        return
-      }
-
-      // Hard redirect — cookie is set, middleware will let us in
+      // Hard redirect — cookies are now set, middleware will let us in
       window.location.href = '/'
     } catch {
       setMessage('An error occurred. Please try again later.')
