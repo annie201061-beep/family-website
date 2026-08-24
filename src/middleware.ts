@@ -29,7 +29,10 @@ export function middleware(request: NextRequest) {
     pathname === '/login' ||
     pathname.startsWith('/auth/callback') ||
     pathname === '/elsa-plan.html' ||
-    pathname === '/elsa-tracker.html'
+    pathname === '/elsa-tracker.html' ||
+    pathname === '/elsa-counselor-checklist.html' ||
+    pathname === '/javis-tracker.html' ||
+    pathname === '/cyrus-tracker.html'
   ) {
     return NextResponse.next()
   }

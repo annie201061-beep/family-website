@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大宝 (Shanru) - Counselor Meeting Checklist</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f5f0;
+    --card: #ffffff;
+    --ink: #2c2416;
+    --muted: #6b5e4a;
+    --accent: #c25e4d;
+    --accent-light: #f0ddd9;
+    --gold: #b08d57;
+    --gold-light: #f5efe0;
+    --border: #e4ddd2;
+    --shadow: 0 2px 8px rgba(44,36,22,0.07);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 36px 20px 28px;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 32px;
+  }
+  .header h1 {
+    font-size: 1.7em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .header .subtitle {
+    font-size: 1em;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .header .date {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9em;
+    padding: 4px 18px;
+    border-radius: 20px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 32px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .section-number {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1em;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 1.2em;
+    font-weight: 700;
+  }
+  .section-title .zh { color: var(--ink); }
+  .section-title .en { color: var(--muted); font-weight: 400; font-size: 0.95em; }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+  .card-title {
+    font-weight: 700;
+    font-size: 1.02em;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+  .ask-box {
+    background: var(--gold-light);
+    border-left: 3px solid var(--gold);
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 12px;
+  }
+  .ask-label {
+    font-size: 0.72em;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .ask-text {
+    font-style: italic;
+    color: #4a3f2f;
+    font-size: 0.95em;
+  }
+
+  /* Checklist */
+  .checklist {
+    list-style: none;
+  }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 0.93em;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist input[type="checkbox"] {
+    margin-top: 5px;
+    flex-shrink: 0;
+    width: 16px; height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  .checklist label {
+    cursor: pointer;
+    flex: 1;
+  }
+  .checklist .fill {
+    display: inline-block;
+    min-width: 120px;
+    border-bottom: 1px solid var(--muted);
+    margin: 0 4px;
+    padding: 0 4px;
+    color: var(--muted);
+  }
+
+  /* Notes */
+  .notes {
+    margin-top: 10px;
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 0.88em;
+    color: var(--muted);
+    background: #fafaf7;
+    resize: vertical;
+    min-height: 50px;
+  }
+  .notes::placeholder { color: #c4b9a6; }
+
+  /* Closing */
+  .closing-box {
+    background: linear-gradient(135deg, var(--accent-light), var(--gold-light));
+    border-radius: 12px;
+    padding: 22px 24px;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .closing-box .en {
+    font-style: italic;
+    color: #4a3f2f;
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+  .closing-box .zh {
+    font-size: 1em;
+    color: var(--ink);
+  }
+
+  /* Print */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .card { box-shadow: none; break-inside: avoid; }
+    .header { padding: 20px; }
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>大宝 (Shanru) — 辅导员面谈清单</h1>
+    <div class="subtitle">Counselor Meeting Checklist</div>
+    <div class="date">August 19, 2026</div>
+  </div>
+
+  <!-- Section 1: ELL -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title">
+        <span class="zh">ELL 语言支持</span><br>
+        <span class="en">ELL Language Support & Accommodations</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Support Model · 辅导模式</div>
+      <div class="ask-box">
+        <div class="ask-label">Ask · 询问</div>
+        <div class="ask-text">"What exact ELL support model is Shanru receiving — is it pull-out small group instruction, or push-in support in regular classes?"</div>
+      </div>
+      <ul class="checklist">
+        <li><input type="checkbox" id="s1-1"><label for="s1-1">确认支持模式：<span class="fill">____</span> (Pull-out / Push-in / Sheltered / Co-teaching)</label></li>
+        <li><input type="checkbox" id="s1-2"><label for="s1-2">语言评估等级 (WIDA/ELPA21)：<span class="fill">Level ____</span></label></li>
+        <li><input type="checkbox" id="s1-3"><label for="s1-3">本学年语言提升目标 (ILP)：<span class="fill">____</span></label></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Math & Science Accommodations · 主科课堂适配</div>
+      <div class="ask-box">
+        <div class="ask-label">Ask · 询问</div>
+        <div class="ask-text">"Are her Math and Science teachers trained in sheltered instruction? Can she use translation tools, bilingual glossaries, or get extra time on tests?"</div>
+      </div>
+      <ul class="checklist">
+        <li><input type="checkbox" id="s1-4"><label for="s1-4">数学和科学老师是否了解她的 ELL 状态</label></li>
+        <li><input type="checkbox" id="s1-5"><label for="s1-5">允许使用翻译器 / 双语词典</label></li>
+        <li><input type="checkbox" id="s1-6"><label for="s1-6">评估提供额外时间 (Extra Time)</label></li>
+        <li><input type="checkbox" id="s1-7"><label for="s1-7">包含词汇表 (Glossary) 或图文提示</label></li>
+        <li><input type="checkbox" id="s1-8"><label for="s1-8">目前课堂听课理解度评估：<span class="fill">____</span></label></li>
+        <li><input type="checkbox" id="s1-9"><label for="s1-9">必要时可召开 ILP 调整会议</label></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Tutoring & Key Contacts · 课后辅导与联系人</div>
+      <div class="ask-box">
+        <div class="ask-label">Ask · 询问</div>
+        <div class="ask-text">"Does the school offer peer tutoring or an after-school homework club? Could I also get the direct contact info for her ELL specialist?"</div>
+      </div>
+      <ul class="checklist">
+        <li><input type="checkbox" id="s1-10"><label for="s1-10">Peer Tutoring（高年级一对一辅导）</label></li>
+        <li><input type="checkbox" id="s1-11"><label for="s1-11">Homework Club / Study Hall（时间：<span class="fill">____</span>）</label></li>
+        <li><input type="checkbox" id="s1-12"><label for="s1-12">推荐线上平台（Paper / IXL / Khan Academy）</label></li>
+        <li><input type="checkbox" id="s1-13"><label for="s1-13">ELL 专职老师姓名：<span class="fill">____</span></label></li>
+        <li><input type="checkbox" id="s1-14"><label for="s1-14">Direct Email / Phone：<span class="fill">____</span></label></li>
+      </ul>
+      <textarea class="notes" placeholder="📝 Notes · 备注..."></textarea>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Parent Communication · 家校沟通</div>
+      <div class="ask-box">
+        <div class="ask-label">Ask · 询问</div>
+        <div class="ask-text">"What primary app do you use for school communication, and is Chinese translation available (e.g., ParentSquare, TalkingPoints)?"</div>
+      </div>
+      <ul class="checklist">
+        <li><input type="checkbox" id="s1-15"><label for="s1-15">常用 App：<span class="fill">____</span> (ParentSquare / TalkingPoints / etc.)</label></li>
+        <li><input type="checkbox" id="s1-16"><label for="s1-16">是否提供中文翻译支持</label></li>
+        <li><input type="checkbox" id="s1-17"><label for="s1-17">是否需要学校提供现场口译 (Interpreter)</label></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Section 2: 4-Year Plan -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title">
+        <span class="zh">美高四年规划</span><br>
+        <span class="en">4-Year High School Plan</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Math & Science Pathways · 数学与科学进阶路径</div>
+      <div class="ask-box">
+        <div class="ask-label">Ask · 询问</div>
+        <div class="ask-text">"Based on her current level, what are the recommended Math and Science pathways for her through 12th grade?"</div>
+      </div>
+      <ul class="checklist">
+        <li><input type="checkbox" id="s2-1"><label for="s2-1">数学 Pathway：9th <span class="fill">____</span> → 10th <span class="fill">____</span> → 11th <span class="fill">____</span> → 12th <span class="fill">____</span></label></li>
+        <li><input type="checkbox" id="s2-2"><label for="s2-2">科学 Pathway：9th <span class="fill">____</span> → 10th <span class="fill">____</span> → 11th <span class="fill">____</span> → 12th <span class="fill">____</span></label></li>
+        <li><input type="checkbox" id="s2-3"><label for="s2-3">是否需要暑期补课或衔接课程来跟上进度</label></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Honors & AP Prerequisites · 毕业要求与 AP 门槛</div>
+      <div class="ask-box">
+        <div class="ask-label">Ask · 询问</div>
+        <div class="ask-text">"How does her 9th-grade performance connect to future Honors or AP courses? What are the prerequisite requirements?"</div>
+      </div>
+      <ul class="checklist">
+        <li><input type="checkbox" id="s2-4"><label for="s2-4">选修 AP 的 GPA 或语言要求：<span class="fill">____</span></label></li>
+        <li><input type="checkbox" id="s2-5"><label for="s2-5">10/11 年级建议选修的 AP 科目：<span class="fill">____</span></label></li>
+        <li><input type="checkbox" id="s2-6"><label for="s2-6"> Honors 课程升阶的具体要求（考试/成绩/教师推荐）</label></li>
+        <li><input type="checkbox" id="s2-7"><label for="s2-7">ELL 学生选修 AP 是否有额外支持或限制</label></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Graduation Requirements · 毕业要求</div>
+      <ul class="checklist">
+        <li><input type="checkbox" id="s2-8"><label for="s2-8">总学分要求 & 核心课程清单</label></li>
+        <li><input type="checkbox" id="s2-9"><label for="s2-9">体育 / 艺术 / 社区服务毕业要求</label></li>
+        <li><input type="checkbox" id="s2-10"><label for="s2-10">州考 (State Test) 或毕业考豁免政策 (ELL 学生)</label></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Section 3: Clubs & Interests -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div class="section-title">
+        <span class="zh">社团与个人特长</span><br>
+        <span class="en">Clubs, Guzheng & Visual Arts</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Club Fair & Recommendations · 社团招新</div>
+      <div class="ask-box">
+        <div class="ask-label">Ask · 询问</div>
+        <div class="ask-text">"When is the school's Club Fair? Which clubs would you recommend for a 9th-grade ELL student to help her socialize?"</div>
+      </div>
+      <ul class="checklist">
+        <li><input type="checkbox" id="s3-1"><label for="s3-1">Club Fair 日期：<span class="fill">____</span></label></li>
+        <li><input type="checkbox" id="s3-2"><label for="s3-2">Counselor 推荐的新生友好社团：<span class="fill">____</span></label></li>
+        <li><input type="checkbox" id="s3-3"><label for="s3-3">适合 ELL 学生练习英语的社团 (如 Art / Music / Robotics)</label></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Guzheng / Traditional Music · 古筝与民乐展示</div>
+      <div class="ask-box">
+        <div class="ask-label">Ask · 询问</div>
+        <div class="ask-text">"Shanru plays the Guzheng (traditional Chinese zither). Are there platforms like the Asian Student Union, Multicultural Fair, or Talent Shows where she can perform?"</div>
+      </div>
+      <ul class="checklist">
+        <li><input type="checkbox" id="s3-4"><label for="s3-4">Asian Student Union (ASU) — 是否有该社团？</label></li>
+        <li><input type="checkbox" id="s3-5"><label for="s3-5">Multicultural / International Night 文化节</label></li>
+        <li><input type="checkbox" id="s3-6"><label for="s3-6">Talent Show / 校内音乐演出机会</label></li>
+        <li><input type="checkbox" id="s3-7"><label for="s3-7"> Orchestra / 乐队类社团是否接受传统乐器加入</label></li>
+      </ul>
+      <textarea class="notes" placeholder="📝 关于古筝表演的机会和平台备注..."></textarea>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Drawing & Visual Arts · 绘画与视觉艺术</div>
+      <div class="ask-box">
+        <div class="ask-label">Ask · 询问</div>
+        <div class="ask-text">"She is also passionate about drawing. Does the school have an Art Club or a structured pathway for Studio Art / AP Art and Design?"</div>
+      </div>
+      <ul class="checklist">
+        <li><input type="checkbox" id="s3-8"><label for="s3-8">Art Club / Design Club 是否存在</label></li>
+        <li><input type="checkbox" id="s3-9"><label for="s3-9">Studio Art 课程梯队 (Art 1 → Art 2 → Honors → AP)</label></li>
+        <li><input type="checkbox" id="s3-10"><label for="s3-10">AP Art & Design 选修规则 & 作品集要求</label></li>
+        <li><input type="checkbox" id="s3-11"><label for="s3-11">美术老师/社团指导老师联系方式</label></li>
+      </ul>
+      <textarea class="notes" placeholder="📝 关于美术课程和展示机会的备注..."></textarea>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Founding a New Club · 创立新社团</div>
+      <div class="ask-box">
+        <div class="ask-label">Ask · 询问</div>
+        <div class="ask-text">"If she wants to start a traditional music or art club in the future, what is the application process?"</div>
+      </div>
+      <ul class="checklist">
+        <li><input type="checkbox" id="s3-12"><label for="s3-12">创立新社团的完整流程</label></li>
+        <li><input type="checkbox" id="s3-13"><label for="s3-13">需要几位学生发起 & 是否需要教师担任 Advisor</label></li>
+        <li><input type="checkbox" id="s3-14"><label for="s3-14">社团注册截止日期 / 学年中可以何时创办</label></li>
+        <li><input type="checkbox" id="s3-15"><label for="s3-15">学校是否提供初创社团的资金或资源支持</label></li>
+      </ul>
+      <textarea class="notes" placeholder="📝 关于创立社团的流程和注意事项备注..."></textarea>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Section 4: Closing -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div class="section-title">
+        <span class="zh">总结与后续跟进</span><br>
+        <span class="en">Closing & Follow-Up</span>
+      </div>
+    </div>
+
+    <div class="closing-box">
+      <p class="en">
+        "Thank you so much for your guidance today! Could you please email me the ELL teacher's contact info, the after-school tutoring schedule, and her recommended course pathway when you have a moment?"
+      </p>
+      <p class="zh" style="margin-top:10px;">
+        感谢您的解答！方便时请将 ELL 老师的联系方式、课后辅导时间表以及推荐的未来选课路径通过邮件发给我，谢谢！
+      </p>
+    </div>
+
+    <div class="card" style="margin-top: 18px;">
+      <div class="card-title">Follow-Up Items · 后续跟进事项</div>
+      <ul class="checklist">
+        <li><input type="checkbox" id="s4-1"><label for="s4-1">发送 ELL 老师联系方式 (Email)</label></li>
+        <li><input type="checkbox" id="s4-2"><label for="s4-2">发送课后辅导时间表 / Peer Tutoring 安排</label></li>
+        <li><input type="checkbox" id="s4-3"><label for="s4-3">发送推荐选课路径 (Recommended Course Pathway)</label></li>
+        <li><input type="checkbox" id="s4-4"><label for="s4-4">约定下次跟进会议 / Follow-up meeting</label></li>
+        <li><input type="checkbox" id="s4-5"><label for="s4-5">确认下次 report card / 成绩单发布时间</label></li>
+      </ul>
+      <textarea class="notes" placeholder="📝 其他后续事项或提醒..."></textarea>
+    </div>
+  </div>
+
+  <div style="text-align:center; padding: 20px; color: var(--muted); font-size: 0.8em;">
+    Prepared for Shanru's Counselor Meeting · August 19, 2026
+  </div>
+
+</div>
+</body>
+</html>
