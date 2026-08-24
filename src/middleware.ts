@@ -24,8 +24,13 @@ function parseJwt(token: string): { exp?: number } | null {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Allow login page and auth callback without authentication
-  if (pathname === '/login' || pathname.startsWith('/auth/callback')) {
+  // Allow login page, auth callback, and embedded HTML files without auth check
+  if (
+    pathname === '/login' ||
+    pathname.startsWith('/auth/callback') ||
+    pathname === '/elsa-plan.html' ||
+    pathname === '/elsa-tracker.html'
+  ) {
     return NextResponse.next()
   }
 
