@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大宝的学习小树 🌱</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        cream: '#fef9ef',
+        warmgreen: '#bbf7d0',
+        softgreen: '#86efac',
+        sage: '#dcfce7',
+        gold: '#fde68a',
+        warmyellow: '#fef08a',
+        peach: '#fed7aa',
+        coral: '#fdba74',
+        lavender: '#e9d5ff',
+        sky: '#bae6fd',
+        warmgray: '#f5f0eb',
+      }
+    }
+  }
+}
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;700&display=swap');
+
+* { font-family: 'Noto Sans SC', sans-serif; }
+h1, h2, h3, .serif { font-family: 'Noto Serif SC', serif; }
+
+.tab-btn { transition: all 0.3s ease; }
+.tab-btn.active { transform: translateY(-2px); }
+.task-check { transition: all 0.2s ease; }
+.task-check:checked { transform: scale(1.1); }
+.progress-ring { transition: stroke-dashoffset 0.5s ease; }
+
+.grow-enter {
+  animation: growIn 0.5s ease forwards;
+}
+@keyframes growIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.float { animation: float 3s ease-in-out infinite; }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.streak-fire { animation: fireGlow 1.5s ease-in-out infinite; }
+@keyframes fireGlow {
+  0%, 100% { text-shadow: 0 0 5px #fde68a; }
+  50% { text-shadow: 0 0 15px #fdba74, 0 0 25px #fde68a; }
+}
+
+.shake { animation: shake 0.5s ease; }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+input[type="date"] { color-scheme: light; }
+
+.section-hidden { display: none; }
+</style>
+</head>
+<body class="bg-cream min-h-screen">
+
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-cream/90 backdrop-blur-sm border-b border-warmgreen/30 px-4 py-3">
+  <div class="max-w-lg mx-auto flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl float">🌱</span>
+      <div>
+        <h1 class="text-lg font-bold text-gray-800 leading-tight">大宝的学习小树</h1>
+        <p class="text-xs text-gray-500" id="todayDate"></p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <div id="streakBadge" class="hidden items-center gap-1 bg-gold/50 px-2 py-1 rounded-full">
+        <span class="text-sm">🔥</span>
+        <span class="text-xs font-bold text-gray-700" id="streakCount">0</span>
+        <span class="text-xs text-gray-600">天</span>
+      </div>
+      <button onclick="showMotivation()" class="text-2xl hover:scale-110 transition-transform" title="给我打气">💪</button>
+    </div>
+  </div>
+</header>
+
+<!-- Navigation Tabs -->
+<nav class="sticky top-[60px] z-40 bg-cream/90 backdrop-blur-sm border-b border-warmgreen/20 px-4 py-2">
+  <div class="max-w-lg mx-auto flex gap-1 overflow-x-auto">
+    <button onclick="switchTab('today')" class="tab-btn active flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium bg-softgreen text-gray-800" data-tab="today">📝 今日</button>
+    <button onclick="switchTab('weekly')" class="tab-btn flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 text-gray-600 hover:bg-gray-200" data-tab="weekly">📊 本周</button>
+    <button onclick="switchTab('gpa')" class="tab-btn flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 text-gray-600 hover:bg-gray-200" data-tab="gpa">🎯 GPA</button>
+    <button onclick="switchTab('counselor')" class="tab-btn flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 text-gray-600 hover:bg-gray-200" data-tab="counselor">🏫 顾问</button>
+    <button onclick="switchTab('uw')" class="tab-btn flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 text-gray-600 hover:bg-gray-200" data-tab="uw">🎓 UW</button>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="max-w-lg mx-auto px-4 py-4 pb-24">
+
+  <!-- ==================== TODAY TAB ==================== -->
+  <section id="tab-today" class="tab-content grow-enter">
+    <!-- Daily Motivation -->
+    <div id="dailyQuote" class="bg-warmgreen/30 rounded-2xl p-4 mb-4 border border-softgreen/30">
+      <p class="text-sm text-gray-700 italic leading-relaxed">"每一小步，都是向前走。"</p>
+    </div>
+
+    <!-- Today's Task Card -->
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-base font-bold text-gray-800">今日小任务</h2>
+        <span class="text-xs bg-softgreen/50 text-gray-700 px-2 py-0.5 rounded-full">最多35分钟</span>
+      </div>
+      <p class="text-xs text-gray-500 mb-4">做完一项就休息，不想做可以换。全做完有小奖励！</p>
+
+      <div class="space-y-3">
+        <!-- Task 1: Math -->
+        <div class="flex items-start gap-3 p-3 bg-sage/30 rounded-xl">
+          <input type="checkbox" id="task1" class="task-check mt-1 w-5 h-5 rounded accent-softgreen cursor-pointer" onchange="updateProgress()">
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">🔢</span>
+              <label for="task1" class="text-sm font-medium text-gray-800 cursor-pointer">数学小练习</label>
+            </div>
+            <p class="text-xs text-gray-500 mt-0.5">Khan Academy，做5道题（已会的主题）</p>
+            <p class="text-xs text-softgreen font-medium mt-1">⏱ 10分钟 · 🎯 打开就算完成</p>
+          </div>
+        </div>
+
+        <!-- Task 2: English -->
+        <div class="flex items-start gap-3 p-3 bg-warmyellow/30 rounded-xl">
+          <input type="checkbox" id="task2" class="task-check mt-1 w-5 h-5 rounded accent-gold cursor-pointer" onchange="updateProgress()">
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">📖</span>
+              <label for="task2" class="text-sm font-medium text-gray-800 cursor-pointer">英文小短文</label>
+            </div>
+            <p class="text-xs text-gray-500 mt-0.5">1篇，3步法：猜内容 → 读一段 → 圈3个生词</p>
+            <p class="text-xs text-gold font-medium mt-1">⏱ 10分钟 · 🎯 读完1篇就算完成</p>
+          </div>
+        </div>
+
+        <!-- Task 3: Video -->
+        <div class="flex items-start gap-3 p-3 bg-sky/30 rounded-xl">
+          <input type="checkbox" id="task3" class="task-check mt-1 w-5 h-5 rounded accent-sky cursor-pointer" onchange="updateProgress()">
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">🎬</span>
+              <label for="task3" class="text-sm font-medium text-gray-800 cursor-pointer">兴趣小视频</label>
+            </div>
+            <p class="text-xs text-gray-500 mt-0.5">1个科普/兴趣视频，开英文字幕看一遍</p>
+            <p class="text-xs text-sky font-medium mt-1">⏱ 5分钟 · 🎯 看完就算完成</p>
+          </div>
+        </div>
+
+        <!-- Task 4: Victory Note -->
+        <div class="flex items-start gap-3 p-3 bg-lavender/30 rounded-xl">
+          <input type="checkbox" id="task4" class="task-check mt-1 w-5 h-5 rounded accent-lavender cursor-pointer" onchange="updateProgress()">
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">✨</span>
+              <label for="task4" class="text-sm font-medium text-gray-800 cursor-pointer">胜利笔记</label>
+            </div>
+            <p class="text-xs text-gray-500 mt-0.5">写一句话：今天学到了_____（中文也行）</p>
+            <p class="text-xs text-lavender font-medium mt-1">⏱ 2分钟 · 🎯 写了就算完成</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="mt-4 pt-3 border-t border-gray-100">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs text-gray-500">今日进度</span>
+          <span class="text-xs font-bold text-gray-700" id="progressText">0 / 4</span>
+        </div>
+        <div class="w-full bg-gray-100 rounded-full h-2.5">
+          <div id="progressBar" class="bg-softgreen h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+        <div id="rewardMsg" class="hidden mt-2 text-center text-sm font-medium text-softgreen"></div>
+      </div>
+    </div>
+
+    <!-- Today's Feeling -->
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h2 class="text-base font-bold text-gray-800 mb-3">今日心情</h2>
+      <p class="text-xs text-gray-500 mb-3">选一个最符合今天感受的表情吧</p>
+      <div class="flex justify-between gap-2" id="moodSelector">
+        <button onclick="selectMood(1)" class="mood-btn flex-1 py-2 rounded-xl text-2xl hover:scale-110 transition-transform" data-mood="1" title="很糟">😞</button>
+        <button onclick="selectMood(2)" class="mood-btn flex-1 py-2 rounded-xl text-2xl hover:scale-110 transition-transform" data-mood="2" title="不太好">😕</button>
+        <button onclick="selectMood(3)" class="mood-btn flex-1 py-2 rounded-xl text-2xl hover:scale-110 transition-transform bg-gold/30" data-mood="3" title="还行">😐</button>
+        <button onclick="selectMood(4)" class="mood-btn flex-1 py-2 rounded-xl text-2xl hover:scale-110 transition-transform" data-mood="4" title="不错">🙂</button>
+        <button onclick="selectMood(5)" class="mood-btn flex-1 py-2 rounded-xl text-2xl hover:scale-110 transition-transform" data-mood="5" title="很好！">😄</button>
+      </div>
+      <p class="text-xs text-gray-400 mt-2 text-center" id="moodLabel">今天还行</p>
+    </div>
+
+    <!-- Daily Effectiveness Check -->
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h2 class="text-base font-bold text-gray-800 mb-3">今日小总结</h2>
+      <p class="text-xs text-gray-500 mb-3">睡前花1分钟，勾选今天的情况</p>
+
+      <div class="space-y-3">
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" id="check1" class="w-4 h-4 rounded accent-softgreen" onchange="calculateDayScore()">
+          <span class="text-sm text-gray-700">完成了至少1个小任务</span>
+        </label>
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" id="check2" class="w-4 h-4 rounded accent-softgreen" onchange="calculateDayScore()">
+          <span class="text-sm text-gray-700">学习时没有哭/生气/激烈争吵</span>
+        </label>
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" id="check3" class="w-4 h-4 rounded accent-softgreen" onchange="calculateDayScore()">
+          <span class="text-sm text-gray-700">今天我们有1次正常的对话（非学习）</span>
+        </label>
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" id="check4" class="w-4 h-4 rounded accent-softgreen" onchange="calculateDayScore()">
+          <span class="text-sm text-gray-700">她今天笑了一次，或没那么紧绷</span>
+        </label>
+      </div>
+
+      <div id="dayScoreResult" class="mt-4 p-3 bg-warmgreen/20 rounded-xl text-center hidden">
+        <p class="text-2xl font-bold text-gray-800" id="dayScoreEmoji"></p>
+        <p class="text-sm text-gray-700 mt-1" id="dayScoreText"></p>
+      </div>
+    </div>
+
+    <!-- Victory Note Input -->
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h2 class="text-base font-bold text-gray-800 mb-2">今日胜利笔记</h2>
+      <p class="text-xs text-gray-500 mb-3">写一句话，记录今天的"小进步"</p>
+      <textarea id="victoryNote" class="w-full p-3 bg-warmgreen/10 rounded-xl text-sm text-gray-700 resize-none focus:outline-none focus:ring-2 focus:ring-softgreen/50" rows="2" placeholder="今天学到了_____（中文写也行）"></textarea>
+      <button onclick="saveVictoryNote()" class="mt-2 px-4 py-1.5 bg-softgreen text-gray-800 text-sm font-medium rounded-full hover:bg-softgreen/80 transition-colors">保存 ✨</button>
+    </div>
+
+    <!-- Save Today Button -->
+    <button onclick="saveToday()" class="w-full py-3 bg-softgreen text-gray-800 font-bold rounded-2xl shadow-sm hover:bg-softgreen/90 transition-colors mb-4">
+      保存今日记录 📝
+    </button>
+    <p id="saveConfirm" class="text-center text-sm text-softgreen font-medium mb-4 hidden">✓ 已保存！今天也是加油的一天~</p>
+  </section>
+
+  <!-- ==================== WEEKLY TAB ==================== -->
+  <section id="tab-weekly" class="tab-content section-hidden grow-enter">
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h2 class="text-lg font-bold text-gray-800 mb-1">本周概览</h2>
+      <p class="text-xs text-gray-500 mb-4" id="weeklyDateRange"></p>
+
+      <!-- Week Selector -->
+      <div class="flex items-center justify-between mb-4">
+        <button onclick="changeWeek(-1)" class="px-3 py-1 bg-gray-100 rounded-full text-sm hover:bg-gray-200">← 上周</button>
+        <span class="text-sm font-medium text-gray-700" id="weekLabel">本周</span>
+        <button onclick="changeWeek(1)" class="px-3 py-1 bg-gray-100 rounded-full text-sm hover:bg-gray-200">下周 →</button>
+      </div>
+
+      <!-- Weekly Stats -->
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div class="bg-sage/40 rounded-xl p-3 text-center">
+          <p class="text-2xl font-bold text-gray-800" id="weekEffectiveDays">0</p>
+          <p class="text-xs text-gray-600">有效日天数</p>
+        </div>
+        <div class="bg-warmyellow/40 rounded-xl p-3 text-center">
+          <p class="text-2xl font-bold text-gray-800" id="weekAvgMood">-</p>
+          <p class="text-xs text-gray-600">平均心情</p>
+        </div>
+        <div class="bg-sky/40 rounded-xl p-3 text-center">
+          <p class="text-2xl font-bold text-gray-800" id="weekTotalTasks">0</p>
+          <p class="text-xs text-gray-600">完成任务数</p>
+        </div>
+        <div class="bg-lavender/40 rounded-xl p-3 text-center">
+          <p class="text-2xl font-bold text-gray-800" id="weekConflicts">0</p>
+          <p class="text-xs text-gray-600">争吵次数</p>
+        </div>
+      </div>
+
+      <!-- Day by Day -->
+      <div class="space-y-2" id="weeklyDayList"></div>
+    </div>
+
+    <!-- Weekly Highlights -->
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h3 class="text-base font-bold text-gray-800 mb-3">🌟 本周亮点</h3>
+      <p class="text-xs text-gray-500 mb-2">哪怕是很小的好事，都值得记下来</p>
+      <textarea id="weeklyHighlights" class="w-full p-3 bg-warmgreen/10 rounded-xl text-sm text-gray-700 resize-none focus:outline-none focus:ring-2 focus:ring-softgreen/50" rows="3" placeholder="1. 她主动跟我说了一句话&#10;2. 数学题第一次做对了3道&#10;3. 今天她没有说'我不想学'"></textarea>
+    </div>
+
+    <!-- Weekly Adjustment -->
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h3 class="text-base font-bold text-gray-800 mb-3">💡 下周微调</h3>
+      <div class="space-y-3">
+        <div>
+          <p class="text-xs text-gray-600 font-medium mb-1">下周想保持的：</p>
+          <input type="text" id="keepDoing" class="w-full p-2 bg-sage/30 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-softgreen/50" placeholder="比如：每天做数学题不催她">
+        </div>
+        <div>
+          <p class="text-xs text-gray-600 font-medium mb-1">下周想试试看的：</p>
+          <input type="text" id="tryDoing" class="w-full p-2 bg-warmyellow/30 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-softgreen/50" placeholder="比如：让她自己安排做任务的时间">
+        </div>
+      </div>
+    </div>
+
+    <button onclick="saveWeekly()" class="w-full py-3 bg-softgreen text-gray-800 font-bold rounded-2xl shadow-sm hover:bg-softgreen/90 transition-colors mb-4">
+      保存本周记录 📊
+    </button>
+  </section>
+
+  <!-- ==================== GPA TAB ==================== -->
+  <section id="tab-gpa" class="tab-content section-hidden grow-enter">
+    <!-- Current GPA -->
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h2 class="text-lg font-bold text-gray-800 mb-3">🎯 GPA 追踪</h2>
+      <p class="text-xs text-gray-500 mb-4">UW 目标：9年级结束时 GPA ≥ 3.0</p>
+
+      <div class="flex items-center justify-center gap-4 mb-4">
+        <div class="relative w-32 h-32">
+          <svg class="w-32 h-32 transform -rotate-90">
+            <circle cx="64" cy="64" r="56" stroke="#f3f4f6" stroke-width="12" fill="none"/>
+            <circle id="gpaRing" cx="64" cy="64" r="56" stroke="#86efac" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="352" stroke-dashoffset="352" class="progress-ring"/>
+          </svg>
+          <div class="absolute inset-0 flex items-center justify-center flex-col">
+            <span class="text-3xl font-bold text-gray-800" id="currentGpaDisplay">--</span>
+            <span class="text-xs text-gray-500">当前 GPA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2 text-center">
+        <div class="bg-sage/30 rounded-lg p-2">
+          <p class="text-xs text-gray-500">9年级目标</p>
+          <p class="text-sm font-bold text-gray-800">≥ 3.0</p>
+        </div>
+        <div class="bg-gold/30 rounded-lg p-2">
+          <p class="text-xs text-gray-500">UW 热门专业</p>
+          <p class="text-sm font-bold text-gray-800">≥ 3.9</p>
+        </div>
+        <div class="bg-lavender/30 rounded-lg p-2">
+          <p class="text-xs text-gray-500">UW 普通专业</p>
+          <p class="text-sm font-bold text-gray-800">≥ 3.8</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- GPA by Semester -->
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h3 class="text-base font-bold text-gray-800 mb-3">学期成绩</h3>
+      <div id="gpaSemesterList" class="space-y-3">
+        <div class="text-center text-sm text-gray-400 py-4">还没有学期成绩记录</div>
+      </div>
+      <button onclick="addSemester()" class="mt-3 w-full py-2 border-2 border-dashed border-gray-300 text-gray-500 text-sm rounded-xl hover:border-softgreen hover:text-gray-700 transition-colors">
+        + 添加学期成绩
+      </button>
+    </div>
+
+    <!-- ELL Level Tracker -->
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h3 class="text-base font-bold text-gray-800 mb-3">📚 ELL 英语等级</h3>
+      <p class="text-xs text-gray-500 mb-3">追踪英语能力提升</p>
+
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs bg-lavender/50 text-gray-700 px-2 py-0.5 rounded-full">当前等级</span>
+        <span class="text-sm font-bold text-gray-800" id="ellLevelDisplay">Level 3+</span>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex items-center gap-2">
+          <div class="flex-1 bg-gray-100 rounded-full h-2">
+            <div class="bg-lavender h-2 rounded-full transition-all" id="ellProgressBar" style="width: 40%"></div>
+          </div>
+          <span class="text-xs text-gray-500" id="ellProgressText">40%</span>
+        </div>
+      </div>
+
+      <p class="text-xs text-gray-400 mt-2">ELL 学生达到学术英语水平通常需要 3-5 年，现在才第1个月，一切正常</p>
+    </div>
+
+    <!-- Add Grade Modal (hidden by default) -->
+    <div id="addGradeModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+      <div class="bg-white rounded-2xl p-6 max-w-sm w-full">
+        <h3 class="text-lg font-bold text-gray-800 mb-4">添加学期成绩</h3>
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs text-gray-600 block mb-1">学期</label>
+            <select id="semesterSelect" class="w-full p-2 border border-gray-200 rounded-lg text-sm">
+              <option value="2026-Fall">2026 年 秋季（9-12月）</option>
+              <option value="2027-Spring">2027 年 春季（1-6月）</option>
+              <option value="2027-Fall">2027 年 秋季（9-12月）</option>
+              <option value="2028-Spring">2028 年 春季（1-6月）</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-gray-600 block mb-1">预估 GPA（0.0 - 4.0）</label>
+            <input type="number" id="gpaInput" step="0.1" min="0" max="4.0" class="w-full p-2 border border-gray-200 rounded-lg text-sm" placeholder="例如：3.2">
+          </div>
+          <div>
+            <label class="text-xs text-gray-600 block mb-1">备注（可选）</label>
+            <input type="text" id="gpaNote" class="w-full p-2 border border-gray-200 rounded-lg text-sm" placeholder="比如：第一学期还在适应">
+          </div>
+        </div>
+        <div class="flex gap-2 mt-4">
+          <button onclick="saveSemester()" class="flex-1 py-2 bg-softgreen text-gray-800 font-medium rounded-xl">保存</button>
+          <button onclick="closeModal()" class="flex-1 py-2 bg-gray-100 text-gray-600 rounded-xl">取消</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== COUNSELOR TAB ==================== -->
+  <section id="tab-counselor" class="tab-content section-hidden grow-enter">
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h2 class="text-lg font-bold text-gray-800 mb-1">🏫 顾问沟通记录</h2>
+      <p class="text-xs text-gray-500 mb-4">记录每次和 Counselor / ELL 老师的沟通</p>
+
+      <div id="counselorLogList" class="space-y-3 mb-4">
+        <div class="text-center text-sm text-gray-400 py-4">还没有沟通记录</div>
+      </div>
+
+      <button onclick="addCounselorLog()" class="w-full py-2.5 bg-softgreen text-gray-800 font-medium rounded-xl hover:bg-softgreen/80 transition-colors">
+        + 记录一次沟通
+      </button>
+    </div>
+
+    <!-- Counselor Prep Checklist -->
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h3 class="text-base font-bold text-gray-800 mb-3">📋 下次沟通准备清单</h3>
+      <p class="text-xs text-gray-500 mb-3">和顾问沟通前，确认这些信息</p>
+
+      <div class="space-y-2">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" class="w-4 h-4 rounded accent-softgreen counselor-prep-check">
+          <span class="text-sm text-gray-700">ELL 支持情况（有没有 pull-out support）</span>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" class="w-4 h-4 rounded accent-softgreen counselor-prep-check">
+          <span class="text-sm text-gray-700">数学/科学老师安排（是否了解 ELL 需求）</span>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" class="w-4 h-4 rounded accent-softgreen counselor-prep-check">
+          <span class="text-sm text-gray-700">课后辅导资源（peer tutoring / homework help）</span>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" class="w-4 h-4 rounded accent-softgreen counselor-prep-check">
+          <span class="text-sm text-gray-700">ELL 老师的联系方式</span>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" class="w-4 h-4 rounded accent-softgreen counselor-prep-check">
+          <span class="text-sm text-gray-700">大宝目前上课情况 / 是否需要调整</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Email Template Reference -->
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h3 class="text-base font-bold text-gray-800 mb-3">📧 邮件模板参考</h3>
+      <p class="text-xs text-gray-500 mb-3">复制下方内容，填入空白处即可发送</p>
+
+      <div class="bg-warmgreen/10 rounded-xl p-3 text-xs text-gray-700 leading-relaxed">
+        <p class="font-medium mb-2">主题：New 9th Grade Student - ELL Support Request - [大宝英文名]</p>
+        <p class="mb-2">Dear [Counselor's Name],</p>
+        <p class="mb-2">My daughter [英文名], a new 9th grade student at MIHS, recently moved from China. She is currently an ELL student at Level 3+.</p>
+        <p class="mb-2">I'm writing to ask for guidance on three things:</p>
+        <p class="mb-1">1. ELL Support - Is there pull-out support for English 9?</p>
+        <p class="mb-1">2. Teacher Placement - Math/Science with ELL-aware teachers?</p>
+        <p class="mb-1">3. After-School Tutoring - Peer tutoring or homework help?</p>
+        <p class="mt-2">Thank you for your time and support.</p>
+        <p>Best regards,<br>[Your Name]<br>[Phone]<br>[Email]</p>
+      </div>
+      <button onclick="copyEmailTemplate()" class="mt-3 w-full py-2 bg-gold/50 text-gray-700 text-sm font-medium rounded-xl hover:bg-gold/80 transition-colors">
+        复制邮件模板 📋
+      </button>
+    </div>
+
+    <!-- Add Counselor Log Modal -->
+    <div id="counselorModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+      <div class="bg-white rounded-2xl p-6 max-w-sm w-full">
+        <h3 class="text-lg font-bold text-gray-800 mb-4">记录沟通</h3>
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs text-gray-600 block mb-1">日期</label>
+            <input type="date" id="counselorDate" class="w-full p-2 border border-gray-200 rounded-lg text-sm">
+          </div>
+          <div>
+            <label class="text-xs text-gray-600 block mb-1">沟通对象</label>
+            <select id="counselorWho" class="w-full p-2 border border-gray-200 rounded-lg text-sm">
+              <option value="Counselor">Counselor（班主任/升学顾问）</option>
+              <option value="ELL Teacher">ELL 英语老师</option>
+              <option value="Math Teacher">数学老师</option>
+              <option value="Science Teacher">科学老师</option>
+              <option value="Other">其他</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-gray-600 block mb-1">沟通方式</label>
+            <select id="counselorHow" class="w-full p-2 border border-gray-200 rounded-lg text-sm">
+              <option value="Email">邮件</option>
+              <option value="Phone">电话</option>
+              <option value="In-Person">面谈</option>
+              <option value="Other">其他</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-gray-600 block mb-1">主要内容</label>
+            <textarea id="counselorContent" class="w-full p-2 border border-gray-200 rounded-lg text-sm resize-none" rows="3" placeholder="讨论了什么，老师说了什么"></textarea>
+          </div>
+          <div>
+            <label class="text-xs text-gray-600 block mb-1">后续跟进</label>
+            <input type="text" id="counselorFollowup" class="w-full p-2 border border-gray-200 rounded-lg text-sm" placeholder="需要 follow up 的事">
+          </div>
+        </div>
+        <div class="flex gap-2 mt-4">
+          <button onclick="saveCounselorLog()" class="flex-1 py-2 bg-softgreen text-gray-800 font-medium rounded-xl">保存</button>
+          <button onclick="closeCounselorModal()" class="flex-1 py-2 bg-gray-100 text-gray-600 rounded-xl">取消</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== UW GOAL TAB ==================== -->
+  <section id="tab-uw" class="tab-content section-hidden grow-enter">
+    <div class="bg-gradient-to-br from-warmgreen/40 to-sky/30 rounded-2xl p-5 mb-4 border border-softgreen/20">
+      <div class="text-center">
+        <p class="text-4xl mb-2">🎓</p>
+        <h2 class="text-xl font-bold text-gray-800 mb-1">UW 华盛顿大学</h2>
+        <p class="text-sm text-gray-600">University of Washington, Seattle</p>
+      </div>
+    </div>
+
+    <!-- UW Admission Factors -->
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h3 class="text-base font-bold text-gray-800 mb-3">UW 录取关键因素</h3>
+      <p class="text-xs text-gray-500 mb-3">每个因素当前进度</p>
+
+      <div class="space-y-3">
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span class="text-gray-700">GPA（9年级目标 ≥ 3.0）</span>
+            <span class="font-bold text-gray-800" id="uwGpaProgress">--</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2">
+            <div class="bg-softgreen h-2 rounded-full transition-all" id="uwGpaBar" style="width: 0%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span class="text-gray-700">课程难度（逐步提升）</span>
+            <span class="font-bold text-gray-800">9年级基础年</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2">
+            <div class="bg-gold h-2 rounded-full" style="width: 15%"></div>
+          </div>
+          <p class="text-xs text-gray-400 mt-0.5">9年级 → 10年级 → 11年级 → 12年级 逐步增加难度</p>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span class="text-gray-700">AP 课程（目标 5-8 门）</span>
+            <span class="font-bold text-gray-800">0 / 5 门</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2">
+            <div class="bg-peach h-2 rounded-full" style="width: 0%"></div>
+          </div>
+          <p class="text-xs text-gray-400 mt-0.5">计划：10年级 AP CSA · 11年级 AP Calc BC / Physics C</p>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span class="text-gray-700">英语能力（ELL Level 4+）</span>
+            <span class="font-bold text-gray-800" id="uwEllProgress">Level 3+</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2">
+            <div class="bg-lavender h-2 rounded-full transition-all" id="uwEllBar" style="width: 30%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span class="text-gray-700">课外活动（2-4 项长期投入）</span>
+            <span class="font-bold text-gray-800">探索中</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2">
+            <div class="bg-coral h-2 rounded-full" style="width: 5%"></div>
+          </div>
+          <p class="text-xs text-gray-400 mt-0.5">9年级是探索期，10年级确定方向</p>
+        </div>
+        <div>
+          <div class="flex justify-between text-sm mb-1">
+            <span class="text-gray-700">文书（展现成长故事）</span>
+            <span class="font-bold text-gray-800">11年级开始</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-2">
+            <div class="bg-gray-300 h-2 rounded-full" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Safety Net -->
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h3 class="text-base font-bold text-gray-800 mb-3">🛡️ 最底线保障</h3>
+      <p class="text-xs text-gray-500 mb-3">即使最坏情况，也有路可走</p>
+
+      <div class="bg-sky/20 rounded-xl p-4">
+        <p class="text-sm font-medium text-gray-800 mb-2">华盛顿州 Community College 转学通路</p>
+        <p class="text-xs text-gray-600 leading-relaxed">
+          如果高中 GPA 不够理想，可以先进入 Bellevue College 等优秀社区大学读2年。
+          只要保持良好 GPA，转学进入 UW Seattle 的<strong>成功率非常高</strong>（远高于直接申请）。
+          这是华盛顿州最成熟、成功率最高的通路之一。
+        </p>
+        <div class="mt-3 flex items-center gap-2">
+          <span class="text-lg">🛡️</span>
+          <span class="text-xs text-gray-600">成功率：约 70-85%（社区大学转 UW）</span>
+        </div>
+      </div>
+
+      <p class="text-xs text-gray-400 mt-3 text-center italic">
+        所以：UW 是一个方向，不是 deadline。她有保底，时间在她这边。
+      </p>
+    </div>
+
+    <!-- 9th Grade Milestones -->
+    <div class="bg-white rounded-2xl p-5 mb-4 shadow-sm border border-warmgreen/20">
+      <h3 class="text-base font-bold text-gray-800 mb-3">🏁 9年级关键里程碑</h3>
+      <p class="text-xs text-gray-500 mb-3">每个月的检查点</p>
+
+      <div class="space-y-3">
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-full bg-softgreen flex items-center justify-center text-xs font-bold text-gray-800 flex-shrink-0 mt-0.5">9</div>
+          <div>
+            <p class="text-sm font-medium text-gray-800">9月：建立节奏</p>
+            <p class="text-xs text-gray-500">能接受每天有一点学习时间，不把学习当敌人</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-full bg-gold/50 flex items-center justify-center text-xs font-bold text-gray-700 flex-shrink-0 mt-0.5">10</div>
+          <div>
+            <p class="text-sm font-medium text-gray-800">10月：建立信心</p>
+            <p class="text-xs text-gray-500">在某个学科上拿到第一次"我还行"的体验</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-full bg-peach/50 flex items-center justify-center text-xs font-bold text-gray-700 flex-shrink-0 mt-0.5">11</div>
+          <div>
+            <p class="text-sm font-medium text-gray-800">11月：小试身手</p>
+            <p class="text-xs text-gray-500">期中考试有至少一门及格，或老师有正面反馈</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-full bg-lavender/50 flex items-center justify-center text-xs font-bold text-gray-700 flex-shrink-0 mt-0.5">12</div>
+          <div>
+            <p class="text-sm font-medium text-gray-800">12月：巩固成果</p>
+            <p class="text-xs text-gray-500">不说"我讨厌英文"，开始有"这个我能试试"的念头</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 rounded-full bg-sky/50 flex items-center justify-center text-xs font-bold text-gray-700 flex-shrink-0 mt-0.5">6</div>
+          <div>
+            <p class="text-sm font-medium text-gray-800">6月：学年总结</p>
+            <p class="text-xs text-gray-500">GPA ≥ 2.5，ELL Level 提升，关系比9月初更好</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="fixed bottom-0 left-0 right-0 bg-cream/90 backdrop-blur-sm border-t border-warmgreen/20 px-4 py-2 z-30">
+  <div class="max-w-lg mx-auto flex items-center justify-between">
+    <p class="text-xs text-gray-400">大树不是一天长成的 💚</p>
+    <button onclick="exportData()" class="text-xs text-gray-500 hover:text-gray-700 underline">导出数据</button>
+  </div>
+</footer>
+
+<script>
+// ==================== DATA MANAGEMENT ====================
+const STORAGE_KEY = 'dabao_tracker_data';
+let appData = {
+  dailyRecords: {},
+  weeklyRecords: {},
+  gpaRecords: [],
+  counselorLogs: [],
+  ellLevel: 'Level 3+',
+  ellProgress: 40,
+  settings: {
+    mood: 3,
+    currentWeekOffset: 0,
+  }
+};
+
+function loadData() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    try {
+      appData = JSON.parse(saved);
+    } catch(e) {
+      console.error('Failed to load data', e);
+    }
+  }
+  // Ensure default structure
+  if (!appData.dailyRecords) appData.dailyRecords = {};
+  if (!appData.weeklyRecords) appData.weeklyRecords = {};
+  if (!appData.gpaRecords) appData.gpaRecords = [];
+  if (!appData.counselorLogs) appData.counselorLogs = [];
+  if (!appData.settings) appData.settings = { currentWeekOffset: 0 };
+}
+
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+}
+
+function getTodayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function getWeekKey(offset = 0) {
+  const d = new Date();
+  const startOfWeek = new Date(d);
+  startOfWeek.setDate(d.getDate() - d.getDay() + 1 + (offset * 7)); // Monday
+  return `${startOfWeek.getFullYear()}-W${getWeekNumber(startOfWeek)}`;
+}
+
+function getWeekNumber(d) {
+  const start = new Date(d.getFullYear(), 0, 1);
+  return Math.ceil((((d - start) / 86400000) + start.getDay() + 1) / 7);
+}
+
+// ==================== UI HELPERS ====================
+function switchTab(tabName) {
+  // Update tab buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('bg-softgreen', 'text-gray-800', 'active');
+    btn.classList.add('bg-gray-100', 'text-gray-600');
+  });
+  const activeBtn = document.querySelector(`[data-tab="${tabName}"]`);
+  activeBtn.classList.remove('bg-gray-100', 'text-gray-600');
+  activeBtn.classList.add('bg-softgreen', 'text-gray-800', 'active');
+
+  // Update content
+  document.querySelectorAll('.tab-content').forEach(content => {
+    content.classList.add('section-hidden');
+  });
+  const activeContent = document.getElementById(`tab-${tabName}`);
+  activeContent.classList.remove('section-hidden');
+  activeContent.classList.add('grow-enter');
+}
+
+function showMotivation() {
+  const quotes = [
+    '"每一小步，都是向前走。"',
+    '"今天你能打开书本，就已经赢了昨天的自己。"',
+    '"学不会不是因为你不行，是因为你还在路上。"',
+    '"慢慢来，比较快。"',
+    '"你已经做得很好了，真的。"',
+    '"不追求完美，追求今天比昨天多一点。"',
+    '"语言不是障碍，是你看世界的另一扇窗。"',
+    '"允许自己慢慢来，这需要很大的勇气。"',
+  ];
+  const quote = quotes[Math.floor(Math.random() * quotes.length)];
+  document.getElementById('dailyQuote').innerHTML = `<p class="text-sm text-gray-700 italic leading-relaxed">${quote}</p>`;
+}
+
+// ==================== TODAY FUNCTIONS ====================
+function updateProgress() {
+  const tasks = ['task1', 'task2', 'task3', 'task4'];
+  let completed = 0;
+  tasks.forEach(id => {
+    if (document.getElementById(id).checked) completed++;
+  });
+
+  const pct = (completed / 4) * 100;
+  document.getElementById('progressBar').style.width = `${pct}%`;
+  document.getElementById('progressText').textContent = `${completed} / 4`;
+
+  const rewardMsg = document.getElementById('rewardMsg');
+  if (completed === 4) {
+    rewardMsg.textContent = '🎉 太棒了！今天全部完成！给自己一个大大的拥抱！';
+    rewardMsg.classList.remove('hidden');
+  } else if (completed >= 2) {
+    rewardMsg.textContent = '💪 不错哦，继续加油！';
+    rewardMsg.classList.remove('hidden');
+  } else {
+    rewardMsg.classList.add('hidden');
+  }
+}
+
+function selectMood(level) {
+  appData.settings.mood = level;
+  document.querySelectorAll('.mood-btn').forEach(btn => {
+    btn.classList.remove('bg-gold/50', 'bg-softgreen/50', 'bg-peach/50');
+    if (parseInt(btn.dataset.mood) === level) {
+      if (level <= 2) btn.classList.add('bg-peach/50');
+      else if (level === 3) btn.classList.add('bg-gold/50');
+      else btn.classList.add('bg-softgreen/50');
+    }
+  });
+
+  const labels = {1: '今天有点糟，没关系', 2: '今天不太好，抱抱', 3: '今天还行吧', 4: '今天不错哦', 5: '今天很好！继续加油'};
+  document.getElementById('moodLabel').textContent = labels[level] || '';
+}
+
+function calculateDayScore() {
+  const checks = ['check1', 'check2', 'check3', 'check4'];
+  let score = 0;
+  checks.forEach(id => {
+    if (document.getElementById(id).checked) score++;
+  });
+
+  const result = document.getElementById('dayScoreResult');
+  result.classList.remove('hidden');
+
+  const emojiEl = document.getElementById('dayScoreEmoji');
+  const textEl = document.getElementById('dayScoreText');
+
+  if (score === 4) {
+    emojiEl.textContent = '🌟';
+    textEl.textContent = '完美的一天！今天非常棒！';
+  } else if (score === 3) {
+    emojiEl.textContent = '✅';
+    textEl.textContent = '有效的一天！在正轨上，继续加油~';
+  } else if (score === 2) {
+    emojiEl.textContent = '⚠️';
+    textEl.textContent = '可接受的一天。没退步就是进步，明天继续~';
+  } else if (score === 1) {
+    emojiEl.textContent = '🔴';
+    textEl.textContent = '今天需要调整。没关系，明天又是一个新的开始。';
+  } else {
+    emojiEl.textContent = '🆘';
+    textEl.textContent = '今天可能需要换策略了。先修复关系，学习明天再说。';
+  }
+}
+
+function saveVictoryNote() {
+  const note = document.getElementById('victoryNote').value.trim();
+  if (note) {
+    const today = getTodayKey();
+    if (!appData.dailyRecords[today]) appData.dailyRecords[today] = {};
+    appData.dailyRecords[today].victoryNote = note;
+    saveData();
+    const btn = event.target;
+    btn.textContent = '已保存 ✓';
+    btn.classList.add('bg-softgreen');
+    setTimeout(() => {
+      btn.textContent = '保存 ✨';
+      btn.classList.remove('bg-softgreen');
+    }, 2000);
+  }
+}
+
+function saveToday() {
+  const today = getTodayKey();
+  const tasks = ['task1', 'task2', 'task3', 'task4'];
+  let completedTasks = 0;
+  tasks.forEach(id => {
+    if (document.getElementById(id).checked) completedTasks++;
+  });
+
+  const checks = ['check1', 'check2', 'check3', 'check4'];
+  let checkScore = 0;
+  checks.forEach(id => {
+    if (document.getElementById(id).checked) checkScore++;
+  });
+
+  const record = {
+    date: today,
+    tasksCompleted: completedTasks,
+    mood: appData.settings.mood || 3,
+    checks: checkScore,
+    victoryNote: document.getElementById('victoryNote').value.trim(),
+    timestamp: new Date().toISOString(),
+  };
+
+  appData.dailyRecords[today] = record;
+  saveData();
+
+  // Show confirmation
+  const confirm = document.getElementById('saveConfirm');
+  confirm.classList.remove('hidden');
+  setTimeout(() => confirm.classList.add('hidden'), 3000);
+
+  // Update streak
+  updateStreak();
+}
+
+function updateStreak() {
+  const today = getTodayKey();
+  let streak = 0;
+  const d = new Date();
+  // Check consecutive days with records
+  for (let i = 0; i < 365; i++) {
+    const checkDate = new Date(d);
+    checkDate.setDate(d.getDate() - i);
+    const key = `${checkDate.getFullYear()}-${String(checkDate.getMonth()+1).padStart(2,'0')}-${String(checkDate.getDate()).padStart(2,'0')}`;
+    if (appData.dailyRecords[key] && appData.dailyRecords[key].tasksCompleted >= 2) {
+      streak++;
+    } else if (i > 0) {
+      break;
+    }
+  }
+
+  if (streak >= 2) {
+    document.getElementById('streakBadge').classList.remove('hidden');
+    document.getElementById('streakBadge').classList.add('flex');
+    document.getElementById('streakCount').textContent = streak;
+    document.getElementById('streakCount').classList.add('streak-fire');
+  }
+}
+
+// ==================== WEEKLY FUNCTIONS ====================
+function renderWeekly(offset = 0) {
+  const d = new Date();
+  const startOfWeek = new Date(d);
+  startOfWeek.setDate(d.getDate() - d.getDay() + 1 + (offset * 7));
+  const endOfWeek = new Date(startOfWeek);
+  endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+  const formatDate = (date) => `${date.getMonth()+1}/${date.getDate()}`;
+  document.getElementById('weeklyDateRange').textContent = `${formatDate(startOfWeek)} - ${formatDate(endOfWeek)}`;
+  document.getElementById('weekLabel').textContent = offset === 0 ? '本周' : (offset === -1 ? '上周' : `${Math.abs(offset)}周后`);
+
+  // Calculate stats
+  let effectiveDays = 0;
+  let totalMood = 0;
+  let moodCount = 0;
+  let totalTasks = 0;
+  let totalConflicts = 0;
+  const dayList = document.getElementById('weeklyDayList');
+  dayList.innerHTML = '';
+
+  const dayNames = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+
+  for (let i = 0; i < 7; i++) {
+    const dayDate = new Date(startOfWeek);
+    dayDate.setDate(startOfWeek.getDate() + i);
+    const key = `${dayDate.getFullYear()}-${String(dayDate.getMonth()+1).padStart(2,'0')}-${String(dayDate.getDate()).padStart(2,'0')}`;
+    const record = appData.dailyRecords[key];
+
+    let dayTasks = 0;
+    let dayMood = '-';
+    let dayChecks = 0;
+
+    if (record) {
+      dayTasks = record.tasksCompleted || 0;
+      dayMood = record.mood || '-';
+      dayChecks = record.checks || 0;
+      totalTasks += dayTasks;
+      totalConflicts += (4 - dayChecks); // Rough estimate of conflicts
+      if (dayMood !== '-' && dayMood >= 2) effectiveDays++;
+      if (dayMood !== '-') {
+        totalMood += dayMood;
+        moodCount++;
+      }
+    }
+
+    const isToday = key === getTodayKey();
+    const moodEmoji = dayMood === '-' ? '-' : ['😞', '😕', '😐', '🙂', '😄'][dayMood - 1] || '-';
+    const dayClass = dayTasks >= 3 ? 'bg-softgreen/20' : (dayTasks >= 1 ? 'bg-warmyellow/20' : 'bg-gray-50');
+
+    dayList.innerHTML += `
+      <div class="flex items-center justify-between p-2 ${dayClass} rounded-lg">
+        <span class="text-xs font-medium text-gray-700 w-12">${dayNames[i]} ${dayDate.getMonth()+1}/${dayDate.getDate()}</span>
+        <span class="text-lg">${moodEmoji}</span>
+        <span class="text-xs text-gray-500">${dayTasks}项任务</span>
+        <span class="text-xs px-1.5 py-0.5 rounded-full ${dayTasks >= 3 ? 'bg-softgreen text-gray-800' : (dayTasks >= 1 ? 'bg-gold text-gray-700' : 'bg-gray-200 text-gray-500')}">${dayTasks >= 3 ? '好' : (dayTasks >= 1 ? '中' : '休')}</span>
+      </div>
+    `;
+  }
+
+  document.getElementById('weekEffectiveDays').textContent = effectiveDays;
+  document.getElementById('weekAvgMood').textContent = moodCount > 0 ? (totalMood / moodCount).toFixed(1) : '-';
+  document.getElementById('weekTotalTasks').textContent = totalTasks;
+  document.getElementById('weekConflicts').textContent = totalConflicts;
+}
+
+function changeWeek(delta) {
+  const newOffset = (appData.settings.currentWeekOffset || 0) + delta;
+  appData.settings.currentWeekOffset = newOffset;
+  saveData();
+  renderWeekly(newOffset);
+}
+
+function saveWeekly() {
+  const offset = appData.settings.currentWeekOffset || 0;
+  const weekKey = getWeekKey(offset);
+  appData.weeklyRecords[weekKey] = {
+    highlights: document.getElementById('weeklyHighlights').value,
+    keepDoing: document.getElementById('keepDoing').value,
+    tryDoing: document.getElementById('tryDoing').value,
+    savedAt: new Date().toISOString(),
+  };
+  saveData();
+  alert('本周记录已保存！📊');
+}
+
+// ==================== GPA FUNCTIONS ====================
+function renderGPA() {
+  // Render GPA ring
+  const gpa = appData.gpaRecords.length > 0 ? appData.gpaRecords[appData.gpaRecords.length - 1].gpa : null;
+  if (gpa) {
+    document.getElementById('currentGpaDisplay').textContent = gpa.toFixed(1);
+    const circumference = 2 * Math.PI * 56;
+    const offset = circumference - (gpa / 4.0) * circumference;
+    document.getElementById('gpaRing').style.strokeDashoffset = offset;
+    document.getElementById('uwGpaProgress').textContent = gpa.toFixed(1);
+    document.getElementById('uwGpaBar').style.width = `${(gpa / 4.0) * 100}%`;
+  } else {
+    document.getElementById('currentGpaDisplay').textContent = '--';
+    document.getElementById('uwGpaProgress').textContent = '--';
+  }
+
+  // Render semester list
+  const list = document.getElementById('gpaSemesterList');
+  if (appData.gpaRecords.length === 0) {
+    list.innerHTML = '<div class="text-center text-sm text-gray-400 py-4">还没有学期成绩记录</div>';
+  } else {
+    list.innerHTML = appData.gpaRecords.map((record, i) => `
+      <div class="flex items-center justify-between p-3 bg-warmgreen/10 rounded-xl">
+        <div>
+          <p class="text-sm font-medium text-gray-800">${record.semester}</p>
+          <p class="text-xs text-gray-500">${record.note || ''}</p>
+        </div>
+        <div class="text-right">
+          <p class="text-lg font-bold ${record.gpa >= 3.0 ? 'text-softgreen' : (record.gpa >= 2.0 ? 'text-gold' : 'text-coral')}">${record.gpa.toFixed(1)}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+function addSemester() {
+  document.getElementById('addGradeModal').classList.remove('hidden');
+  document.getElementById('addGradeModal').classList.add('flex');
+}
+
+function closeModal() {
+  document.getElementById('addGradeModal').classList.add('hidden');
+  document.getElementById('addGradeModal').classList.remove('flex');
+}
+
+function saveSemester() {
+  const semester = document.getElementById('semesterSelect').value;
+  const gpa = parseFloat(document.getElementById('gpaInput').value);
+  const note = document.getElementById('gpaNote').value;
+
+  if (isNaN(gpa) || gpa < 0 || gpa > 4.0) {
+    alert('请输入有效的 GPA（0.0 - 4.0）');
+    return;
+  }
+
+  appData.gpaRecords.push({ semester, gpa, note, addedAt: new Date().toISOString() });
+  saveData();
+  closeModal();
+  renderGPA();
+
+  // Clear inputs
+  document.getElementById('gpaInput').value = '';
+  document.getElementById('gpaNote').value = '';
+}
+
+// ==================== COUNSELOR FUNCTIONS ====================
+function renderCounselorLogs() {
+  const list = document.getElementById('counselorLogList');
+  if (appData.counselorLogs.length === 0) {
+    list.innerHTML = '<div class="text-center text-sm text-gray-400 py-4">还没有沟通记录</div>';
+    return;
+  }
+
+  list.innerHTML = appData.counselorLogs.slice().reverse().map(log => `
+    <div class="p-3 bg-warmgreen/10 rounded-xl">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs font-medium text-gray-700">${log.who}</span>
+        <span class="text-xs text-gray-400">${log.date}</span>
+      </div>
+      <p class="text-xs text-gray-500 mb-1"><strong>方式：</strong>${log.how}</p>
+      <p class="text-sm text-gray-700 mb-2">${log.content}</p>
+      ${log.followup ? `<p class="text-xs text-softgreen"><strong>跟进：</strong>${log.followup}</p>` : ''}
+    </div>
+  `).join('');
+}
+
+function addCounselorLog() {
+  document.getElementById('counselorModal').classList.remove('hidden');
+  document.getElementById('counselorModal').classList.add('flex');
+  document.getElementById('counselorDate').value = getTodayKey();
+}
+
+function closeCounselorModal() {
+  document.getElementById('counselorModal').classList.add('hidden');
+  document.getElementById('counselorModal').classList.remove('flex');
+}
+
+function saveCounselorLog() {
+  const log = {
+    date: document.getElementById('counselorDate').value,
+    who: document.getElementById('counselorWho').value,
+    how: document.getElementById('counselorHow').value,
+    content: document.getElementById('counselorContent').value,
+    followup: document.getElementById('counselorFollowup').value,
+    savedAt: new Date().toISOString(),
+  };
+
+  if (!log.date || !log.content) {
+    alert('请填写日期和主要内容');
+    return;
+  }
+
+  appData.counselorLogs.push(log);
+  saveData();
+  closeCounselorModal();
+  renderCounselorLogs();
+
+  // Clear inputs
+  document.getElementById('counselorContent').value = '';
+  document.getElementById('counselorFollowup').value = '';
+}
+
+function copyEmailTemplate() {
+  const template = `Subject: New 9th Grade Student - ELL Support Request - [Dabao's English Name]
+
+Dear [Counselor's Name],
+
+My daughter [English Name], a new 9th grade student at MIHS, recently moved to the U.S. from China. She is currently an ELL student at Level 3+.
+
+I'm writing to ask for guidance on three things:
+
+1. ELL Support - Is there pull-out support available for English 9 and World History?
+2. Teacher Placement - For math and science, are there teachers who are experienced with ELL students?
+3. After-School Tutoring - Does MIHS offer peer tutoring or homework help sessions?
+
+Thank you very much for your time and support.
+
+Best regards,
+[Your Name]
+[Your Phone]
+[Your Email]`;
+
+  navigator.clipboard.writeText(template).then(() => {
+    alert('邮件模板已复制到剪贴板！📋');
+  }).catch(() => {
+    prompt('请手动复制下方内容：', template);
+  });
+}
+
+// ==================== EXPORT ====================
+function exportData() {
+  const dataStr = JSON.stringify(appData, null, 2);
+  const blob = new Blob([dataStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `dabao_tracker_backup_${getTodayKey()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ==================== INITIALIZATION ====================
+function init() {
+  loadData();
+  renderWeekly(appData.settings.currentWeekOffset || 0);
+  renderGPA();
+  renderCounselorLogs();
+  updateStreak();
+  selectMood(appData.settings.mood || 3);
+
+  // Set today's date
+  const today = new Date();
+  const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+  document.getElementById('todayDate').textContent = today.toLocaleDateString('zh-CN', options);
+
+  // Load today's record if exists
+  const todayKey = getTodayKey();
+  if (appData.dailyRecords[todayKey]) {
+    const record = appData.dailyRecords[todayKey];
+    if (record.tasksCompleted >= 1) {
+      ['task1', 'task2', 'task3', 'task4'].forEach((id, i) => {
+        if (i < record.tasksCompleted) document.getElementById(id).checked = true;
+      });
+      updateProgress();
+    }
+    if (record.mood) selectMood(record.mood);
+    if (record.victoryNote) document.getElementById('victoryNote').value = record.victoryNote;
+    if (record.checks) {
+      for (let i = 1; i <= record.checks; i++) {
+        document.getElementById(`check${i}`).checked = true;
+      }
+      calculateDayScore();
+    }
+  }
+
+  // Check first visit
+  if (!localStorage.getItem('dabao_visited_before')) {
+    localStorage.setItem('dabao_visited_before', 'true');
+    setTimeout(() => {
+      alert('欢迎！🌱\n\n这里是大宝的学习小树。\n\n📝 今日 - 记录每天的学习和心情\n📊 本周 - 看这周的亮点\n🎯 GPA - 追踪成绩变化\n🏫 顾问 - 记录和 Counselor 的沟通\n🎓 UW - 看通往UW的目标进度\n\n每天打开，记录一下，让成长被看见。');
+    }, 500);
+  }
+}
+
+// Start the app
+init();
+</script>
+
+</body>
+</html>

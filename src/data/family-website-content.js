@@ -12,6 +12,8 @@ const htmlContent = `
 <div class="nav">
   <a href="#home" class="active">🏠 首页</a>
   <a href="#shanru">👦 Elsa</a>
+  <a href="#elsa-plan">📋 四年规划</a>
+  <a href="#elsa-tracker">📈 学习追踪</a>
   <a href="#javis">👦 二宝 Javis</a>
   <a href="#sanbao">👶 Cyrus</a>
   <a href="#schedule">📅 日程总览</a>
@@ -137,6 +139,32 @@ const htmlContent = `
     <li>👤 Math 测试：Robin Moore / Monica Moline</li>
     <li>💻 Skyward 支持：Heather Ross</li>
   </ul>
+
+  <!-- ========== ELSA: 四年美高规划 ========== -->
+  <div id="elsa-plan" class="section" style="margin-top: 20px;">
+    <div class="section-title"><span class="emoji">📋</span>Elsa 四年美高规划（MIHS → UW）</div>
+    <p style="color: #666; margin-bottom: 12px; font-size: 0.9em;">
+      📄 与升学顾问沟通用的完整规划文档，包含学生画像、UW 录取要求、四年课程路线、AP 策略等。
+    </p>
+    <iframe
+      src="/elsa-plan.html"
+      style="width: 100%; height: 800px; border: 1px solid #e0e0e0; border-radius: 12px;"
+      title="Elsa 四年美高规划"
+    ></iframe>
+  </div>
+
+  <!-- ========== ELSA: 学习追踪系统 ========== -->
+  <div id="elsa-tracker" class="section">
+    <div class="section-title"><span class="emoji">📈</span>Elsa 学习追踪系统</div>
+    <p style="color: #666; margin-bottom: 12px; font-size: 0.9em;">
+      🌱 每日学习记录、本周亮点、GPA 追踪、顾问沟通日志。数据保存在浏览器本地。
+    </p>
+    <iframe
+      src="/elsa-tracker.html"
+      style="width: 100%; height: 900px; border: 1px solid #e0e0e0; border-radius: 12px;"
+      title="Elsa 学习追踪"
+    ></iframe>
+  </div>
 </div>
 
 <!-- ========== JAVIS ========== -->

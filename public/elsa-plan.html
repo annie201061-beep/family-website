@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大宝四年美高规划（与顾问沟通用）</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: linear-gradient(135deg, #4b2e83 0%, #667eea 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        /* ===== Header ===== */
+        header {
+            background: linear-gradient(135deg, #4b2e83 0%, #667eea 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header .subtitle {
+            font-size: 1.15em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        header .meta {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        header .meta span {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.95em;
+            backdrop-filter: blur(10px);
+        }
+
+        /* ===== Profile Banner ===== */
+        .profile-banner {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8eaf6 100%);
+            padding: 30px 40px;
+            border-bottom: 3px solid #4b2e83;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4b2e83, #667eea);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .profile-info h2 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .profile-info p {
+            color: #666;
+            font-size: 1.05em;
+        }
+
+        .profile-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .profile-badges span {
+            background: #4b2e83;
+            color: white;
+            padding: 4px 14px;
+            border-radius: 15px;
+            font-size: 0.85em;
+        }
+
+        /* ===== Strategy Bar ===== */
+        .strategy-bar {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+            padding: 25px 40px;
+            text-align: center;
+        }
+
+        .strategy-bar h2 {
+            font-size: 1.2em;
+            margin-bottom: 12px;
+        }
+
+        .strategy-bar .motto {
+            font-size: 1.3em;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* ===== Navigation ===== */
+        nav {
+            background: #f8f9fa;
+            padding: 15px 40px;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #4b2e83;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        nav a:hover {
+            background: #4b2e83;
+            color: white;
+        }
+
+        /* ===== Content ===== */
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-desc {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 1.05em;
+        }
+
+        /* ===== Cards ===== */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 5px solid;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card.purple { border-left-color: #4b2e83; }
+        .card.blue { border-left-color: #667eea; }
+        .card.red { border-left-color: #e53935; }
+        .card.orange { border-left-color: #fb8c00; }
+        .card.green { border-left-color: #43a047; }
+        .card.pink { border-left-color: #f5576c; }
+
+        .card h3 {
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+
+        .card .icon {
+            font-size: 2em;
+            margin-bottom: 8px;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card ul li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #999;
+        }
+
+        /* ===== Profile Grid ===== */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 15px;
+        }
+
+        .profile-item {
+            background: white;
+            border: 2px solid #e8eaf6;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .profile-item .label {
+            font-size: 0.9em;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .profile-item .value {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #4b2e83;
+        }
+
+        .profile-item .detail {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* ===== Tables ===== */
+        .table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+        }
+
+        thead th {
+            background: #4b2e83;
+            color: white;
+            padding: 14px 18px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        thead th:first-child { border-radius: 12px 0 0 0; }
+        thead th:last-child { border-radius: 0 12px 0 0; }
+
+        tbody td {
+            padding: 12px 18px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tbody tr:nth-child(even) { background: #f8f9fa; }
+        tbody tr:hover { background: #e8eaf6; }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .tag.regular { background: #e3f2fd; color: #1565c0; }
+        .tag.honors { background: #f3e5f5; color: #7b1fa2; }
+        .tag.ap { background: #fff3e0; color: #e65100; }
+        .tag.elective { background: #e8f5e9; color: #2e7d32; }
+        .tag.required { background: #fce4ec; color: #c62828; }
+
+        /* ===== Grade Banner ===== */
+        .grade-banner {
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grade-banner::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .grade-banner.g9 { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .grade-banner.g10 { background: linear-gradient(135deg, #43a047, #66bb6a); }
+        .grade-banner.g11 { background: linear-gradient(135deg, #fb8c00, #f57c00); }
+        .grade-banner.g12 { background: linear-gradient(135deg, #e53935, #c62828); }
+
+        .grade-banner h3 {
+            font-size: 1.4em;
+            margin-bottom: 5px;
+        }
+
+        .grade-banner .grade-label {
+            font-size: 1em;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .grade-banner .goal {
+            font-size: 1.05em;
+            line-height: 1.6;
+        }
+
+        .grade-banner .goal strong {
+            font-size: 1.1em;
+        }
+
+        /* ===== Question List ===== */
+        .question-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .question-list li {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+            font-size: 0.97em;
+            line-height: 1.6;
+        }
+
+        .question-list li .q-number {
+            display: inline-block;
+            background: #4b2e83;
+            color: white;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 26px;
+            font-size: 0.8em;
+            font-weight: 700;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .question-category {
+            font-size: 0.8em;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        /* ===== Timeline ===== */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #4b2e83, #667eea);
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #4b2e83;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #4b2e83;
+        }
+
+        .timeline-item .time {
+            font-weight: 700;
+            color: #4b2e83;
+            font-size: 0.95em;
+            margin-bottom: 3px;
+        }
+
+        .timeline-item .event {
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        /* ===== Emergency Plans ===== */
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 15px;
+        }
+
+        .emergency-item {
+            background: #fff3e0;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 5px solid #fb8c00;
+        }
+
+        .emergency-item .problem {
+            font-weight: 700;
+            color: #e65100;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .emergency-item .solution {
+            color: #555;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        /* ===== Print Section ===== */
+        .print-section {
+            background: #e8f5e9;
+            border: 2px dashed #43a047;
+            border-radius: 12px;
+            padding: 25px 30px;
+            text-align: center;
+        }
+
+        .print-section h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .print-section p {
+            color: #555;
+        }
+
+        .print-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 28px;
+            background: #43a047;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .print-btn:hover {
+            background: #2e7d32;
+            transform: translateY(-1px);
+        }
+
+        /* ===== Highlight Box ===== */
+        .highlight-box {
+            background: linear-gradient(135deg, #e8eaf6, #f3e5f5);
+            border-radius: 12px;
+            padding: 25px 30px;
+            border-left: 5px solid #4b2e83;
+            margin: 25px 0;
+        }
+
+        .highlight-box .quote {
+            font-size: 1.15em;
+            font-style: italic;
+            color: #4b2e83;
+            line-height: 1.6;
+        }
+
+        .highlight-box .author {
+            text-align: right;
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        /* ===== Two Column ===== */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            text-align: center;
+            color: #888;
+            font-size: 0.9em;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* ===== Utility ===== */
+        .text-center { text-align: center; }
+        .mt-20 { margin-top: 20px; }
+        .mb-20 { margin-bottom: 20px; }
+
+        .strength-strong { color: #43a047; font-weight: 600; }
+        .strength-warn { color: #fb8c00; font-weight: 600; }
+        .strength-weak { color: #e53935; font-weight: 600; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            nav { display: none; }
+            .container { box-shadow: none; border-radius: 0; }
+            .grade-banner { break-inside: avoid; }
+            .section { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ===== Header ===== -->
+        <header>
+            <h1>🎓 大宝四年美高规划</h1>
+            <p class="subtitle">Mercer Island High School → University of Washington</p>
+            <p style="opacity:0.85; margin-top:5px;">与顾问老师面谈沟通用 · 2026年8月</p>
+            <div class="meta">
+                <span>📚 9年级入学</span>
+                <span>🎯 目标：UW 华盛顿大学</span>
+                <span>📅 2026-30</span>
+            </div>
+        </header>
+
+        <!-- ===== Student Profile ===== -->
+        <div class="profile-banner">
+            <div class="profile-avatar">👩‍🎓</div>
+            <div class="profile-info" style="flex:1; min-width:250px;">
+                <h2>学生画像</h2>
+                <p>英语 ELL Level 3+，数学基础较好，科学/历史一般，古筝特长</p>
+                <div class="profile-badges">
+                    <span>✅ 数学较强</span>
+                    <span>✅ 古筝特长</span>
+                    <span>⚠️ 英语适应中</span>
+                    <span>📚 文科基础一般</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== Strategy ===== -->
+        <div class="strategy-bar">
+            <h2>🎯 核心策略</h2>
+            <p class="motto">GPA 是生命线 → 英语站稳 → 逐步挑战高阶 → 展示深度和特长</p>
+        </div>
+
+        <!-- ===== Navigation ===== -->
+        <nav>
+            <ul>
+                <li><a href="#profile">学生概况</a></li>
+                <li><a href="#uw">UW 要求</a></li>
+                <li><a href="#plan">四年课程</a></li>
+                <li><a href="#ap">AP 路线</a></li>
+                <li><a href="#pe">PE / Health</a></li>
+                <li><a href="#activities">课外活动</a></li>
+                <li><a href="#questions">问顾问</a></li>
+                <li><a href="#timeline">时间线</a></li>
+                <li><a href="#emergency">应急预案</a></li>
+            </ul>
+        </nav>
+
+        <!-- ===== Content ===== -->
+        <div class="content">
+
+            <!-- ===== Section 1: Student Profile ===== -->
+            <div class="section" id="profile">
+                <h2 class="section-title">📊 一、学生概况</h2>
+                <p class="section-desc">给顾问老师的快速画像 — 一分钟了解大宝的强项和短板。</p>
+
+                <div class="profile-grid">
+                    <div class="profile-item">
+                        <div class="label">英语</div>
+                        <div class="value" style="color:#fb8c00;">⚠️ 较弱</div>
+                        <div class="detail">ELL Level 3+<br>日常对话OK，学术阅读/写作适应中</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="label">数学</div>
+                        <div class="value" style="color:#43a047;">✅ 较好</div>
+                        <div class="detail">代数/几何有国内基础<br>符号类学科无国界</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="label">科学</div>
+                        <div class="value" style="color:#666;">📚 一般</div>
+                        <div class="detail">化学/物理词汇是短板<br>概念理解力没问题</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="label">历史/社科</div>
+                        <div class="value" style="color:#666;">📚 一般</div>
+                        <div class="detail">文字量大<br>英文阅读要求高</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="label">音乐</div>
+                        <div class="value" style="color:#4b2e83;">⭐ 特长</div>
+                        <div class="detail">古筝多年基础<br>进校即可融入 Orchestra</div>
+                    </div>
+                    <div class="profile-item">
+                        <div class="label">体育</div>
+                        <div class="value" style="color:#666;">🏃 待发展</div>
+                        <div class="detail">网球/lacrosse/swimming<br>有兴趣，需逐步参与</div>
+                    </div>
+                </div>
+
+                <div class="highlight-box mt-20">
+                    <div class="quote">
+                        "大宝的核心优势是<strong>数学能力</strong>和<strong>音乐特长</strong>，主要挑战是<strong>英文学术能力</strong>。升学策略：GPA 是生命线，英语站稳后逐步挑战高阶课程，用古筝特长展示个性。"
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Section 2: UW Requirements ===== -->
+            <div class="section" id="uw">
+                <h2 class="section-title">🎓 二、UW 录取核心要求</h2>
+                <p class="section-desc">顾问老师需要了解 — UW 2026年最新录取标准。</p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>项目</th>
+                                <th>UW 要求</th>
+                                <th>大宝目标</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>📊 GPA</td>
+                                <td>3.8+（有竞争力），热门专业 3.9+</td>
+                                <td><strong>3.8–4.0</strong></td>
+                            </tr>
+                            <tr>
+                                <td>📖 课程难度</td>
+                                <td>看是否充分利用学校高阶课程</td>
+                                <td>9→12年级难度递增</td>
+                            </tr>
+                            <tr>
+                                <td>📝 AP 数量</td>
+                                <td>5-8 门（质量 > 数量）</td>
+                                <td>约 6-7 门</td>
+                            </tr>
+                            <tr>
+                                <td>🎯 标化考试</td>
+                                <td>SAT/ACT 不需要（2020年起取消）</td>
+                                <td>不提交</td>
+                            </tr>
+                            <tr>
+                                <td>🏆 课外活动</td>
+                                <td>2-4 项长期深度投入</td>
+                                <td>古筝 + 1-2 项探索</td>
+                            </tr>
+                            <tr>
+                                <td>✍️ 文书</td>
+                                <td>展现真实成长和思考</td>
+                                <td>11年级暑假准备</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="quote">
+                        ⚠️ <strong>关键点：UW 不看 SAT，极度看重 GPA 和课程难度趋势。</strong><br>
+                        从9年级到12年级，课程难度逐步提升 = 巨大加分项。
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Section 3: 4-Year Plan ===== -->
+            <div class="section" id="plan">
+                <h2 class="section-title">📋 三、四年课程规划</h2>
+                <p class="section-desc">与顾问确认的核心选课路线 — 每年逐步提升难度。</p>
+
+                <!-- 9th Grade -->
+                <div class="grade-banner g9">
+                    <h3>9年级 — 适应年 🐣</h3>
+                    <p class="grade-label">定位：稳为主，先站稳，再求突破</p>
+                    <div class="goal">
+                        <strong>核心目标：</strong>GPA 3.8+ | 英语适应 | 确定 1-2 个课外方向<br>
+                        <strong>策略：</strong>English 和科学先上普通班，数学冲 Honors，AP 中文锁定优势
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>学期</th>
+                                <th>课程</th>
+                                <th>类型</th>
+                                <th>理由</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>S1</td>
+                                <td>English 9</td>
+                                <td><span class="tag regular">Regular</span></td>
+                                <td>ELL 学生先站稳，不冒险上 Honors</td>
+                            </tr>
+                            <tr>
+                                <td>S1</td>
+                                <td>World History</td>
+                                <td><span class="tag regular">Regular</span></td>
+                                <td>文字量大，先适应美高历史课节奏</td>
+                            </tr>
+                            <tr>
+                                <td>S1</td>
+                                <td>Science (Chem 1 / Phys 1)</td>
+                                <td><span class="tag regular">Regular</span></td>
+                                <td>科学词汇 + 英文阅读双压力，普通班先拿 A</td>
+                            </tr>
+                            <tr>
+                                <td>S1</td>
+                                <td>Math</td>
+                                <td><span class="tag honors"> Honors</span></td>
+                                <td>看 Placement 测试结果，能上就上</td>
+                            </tr>
+                            <tr>
+                                <td>Year</td>
+                                <td>AP Chinese Lang & Culture</td>
+                                <td><span class="tag ap">AP</span></td>
+                                <td>母语优势，锁定 5 分 + GPA 满分</td>
+                            </tr>
+                            <tr>
+                                <td>Year</td>
+                                <td>Orchestra / Choir</td>
+                                <td><span class="tag elective">选修</span></td>
+                                <td>古筝特长，建立自信和社交圈</td>
+                            </tr>
+                            <tr>
+                                <td>S1</td>
+                                <td>Health（HFL100 Image Health）</td>
+                                <td><span class="tag required">必修</span></td>
+                                <td>课堂理论课（营养/心理/健康知识），靠作业考试拿 A</td>
+                            </tr>
+                            <tr>
+                                <td>S2</td>
+                                <td>PE Net Sports（KPE350）⭐</td>
+                                <td><span class="tag required">必修</span></td>
+                                <td>羽毛球/匹克球/乒乓球/排球/飞盘等，按态度给分，不按运动能力</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 10th Grade -->
+                <div class="grade-banner g10">
+                    <h3>10年级 — 升级年 🌱</h3>
+                    <p class="grade-label">定位：开始加难度，证明能驾驭高阶课程</p>
+                    <div class="goal">
+                        <strong>核心目标：</strong>GPA 3.8+ | 上 1-2 门 Honors | AP CSA（可选）<br>
+                        <strong>策略：</strong>9年级适应后，10年级开始挑战 Honors，展示学术上升趋势
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>学期</th>
+                                <th>课程</th>
+                                <th>类型</th>
+                                <th>理由</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>S1</td>
+                                <td>English 10</td>
+                                <td><span class="tag honors"> Honors</span></td>
+                                <td>9年级适应后，10年级挑战 Honors</td>
+                            </tr>
+                            <tr>
+                                <td>S1</td>
+                                <td>World History / US History</td>
+                                <td><span class="tag honors"> Honors</span></td>
+                                <td>开始上历史 Honors</td>
+                            </tr>
+                            <tr>
+                                <td>S1</td>
+                                <td>Science (Chem / Physics)</td>
+                                <td><span class="tag honors"> Honors</span></td>
+                                <td>科学词汇过了，挑战 Honors</td>
+                            </tr>
+                            <tr>
+                                <td>Year</td>
+                                <td>Math (Alg 1B / Geometry / Alg 2)</td>
+                                <td><span class="tag honors"> Honors/Regular</span></td>
+                                <td>根据9年级成绩定，力争 Honors</td>
+                            </tr>
+                            <tr>
+                                <td>Year</td>
+                                <td>AP Computer Science A</td>
+                                <td><span class="tag ap">AP</span></td>
+                                <td>逻辑题为主，英文阅读量低，适合 ELL</td>
+                            </tr>
+                            <tr>
+                                <td>Year</td>
+                                <td>Orchestra / Choir</td>
+                                <td><span class="tag elective">选修</span></td>
+                                <td>继续，争取进入 Chamber Orchestra</td>
+                            </tr>
+                            <tr>
+                                <td>S1</td>
+                                <td>Personal Fitness & Weight Training（KPE400）</td>
+                                <td><span class="tag required">必修</span></td>
+                                <td>举重/健身器械/体能训练，学会终身健身方法，按 participation 给分</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 11th Grade -->
+                <div class="grade-banner g11">
+                    <h3>11年级 — 核心年 🔥</h3>
+                    <p class="grade-label">定位：学术冲刺 + 领导力 + 申请准备</p>
+                    <div class="goal">
+                        <strong>核心目标：</strong>GPA 3.9+ | 累计 AP 5-6 门 | Leadership 角色<br>
+                        <strong>策略：</strong>这是 UW 看的最重要一年，全力冲刺学术 + 课外领导力
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>学期</th>
+                                <th>课程</th>
+                                <th>类型</th>
+                                <th>理由</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>S1</td>
+                                <td>AP English Language</td>
+                                <td><span class="tag ap">AP</span></td>
+                                <td>11年级必须挑战英语 AP</td>
+                            </tr>
+                            <tr>
+                                <td>S1</td>
+                                <td>AP US History</td>
+                                <td><span class="tag ap">AP</span></td>
+                                <td>展示文科深度</td>
+                            </tr>
+                            <tr>
+                                <td>S1</td>
+                                <td>AP Physics C / AP Chemistry</td>
+                                <td><span class="tag ap">AP</span></td>
+                                <td>理科高光，UW 工程/CS 方向看重</td>
+                            </tr>
+                            <tr>
+                                <td>Year</td>
+                                <td>Math (Alg 2 / Pre-Calc / Calc AB)</td>
+                                <td><span class="tag honors"> AP/Honors</span></td>
+                                <td>尽量到最高阶</td>
+                            </tr>
+                            <tr>
+                                <td>Year</td>
+                                <td>AP Music Theory</td>
+                                <td><span class="tag ap">AP</span></td>
+                                <td>音乐特长转化为学术优势</td>
+                            </tr>
+                            <tr>
+                                <td>Year</td>
+                                <td>Orchestra / Choir</td>
+                                <td><span class="tag elective">选修</span></td>
+                                <td>争取 Leadership 角色</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 12th Grade -->
+                <div class="grade-banner g12">
+                    <h3>12年级 — 收官年 🎓</h3>
+                    <p class="grade-label">定位：展示深度 + 完成申请</p>
+                    <div class="goal">
+                        <strong>核心目标：</strong>保持 GPA | 完成 UW 申请 | 古筝社区项目出成果<br>
+                        <strong>策略：</strong>展示四年持续成长，不是临时包装。用古筝项目展示领导力和文化影响力。
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>学期</th>
+                                <th>课程</th>
+                                <th>类型</th>
+                                <th>理由</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>S1</td>
+                                <td>AP English Literature</td>
+                                <td><span class="tag ap">AP</span></td>
+                                <td>英语最后冲刺</td>
+                            </tr>
+                            <tr>
+                                <td>S1</td>
+                                <td>AP Statistics / AP Psychology</td>
+                                <td><span class="tag ap">AP</span></td>
+                                <td>展示多元学术能力</td>
+                            </tr>
+                            <tr>
+                                <td>Year</td>
+                                <td>Math (Calc BC / Statistics)</td>
+                                <td><span class="tag ap"> AP/Honors</span></td>
+                                <td>数学最高阶</td>
+                            </tr>
+                            <tr>
+                                <td>Year</td>
+                                <td>古筝社区项目</td>
+                                <td><span class="tag ap">独立项目</span></td>
+                                <td>教社区孩子弹古筝 / 中国文化表演</td>
+                            </tr>
+                            <tr>
+                                <td>Year</td>
+                                <td>Orchestra / Choir</td>
+                                <td><span class="tag elective">选修</span></td>
+                                <td>持续投入到最后</td>
+                            </tr>
+                            <tr>
+                                <td>Year</td>
+                                <td>PE</td>
+                                <td><span class="tag required">必修</span></td>
+                                <td>完成要求</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ===== Section 4: AP Timeline ===== -->
+            <div class="section" id="ap">
+                <h2 class="section-title">📝 四、AP 路线总览</h2>
+                <p class="section-desc">6-7 门 AP，质量 > 数量，每年循序渐进。</p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>年级</th>
+                                <th>AP 课程</th>
+                                <th>累计数量</th>
+                                <th>难度</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>9年级</strong></td>
+                                <td>AP Chinese Language</td>
+                                <td>1 门</td>
+                                <td>⭐ 母语优势</td>
+                            </tr>
+                            <tr>
+                                <td><strong>10年级</strong></td>
+                                <td>AP Computer Science A（可选）</td>
+                                <td>1-2 门</td>
+                                <td>⭐⭐ 英文压力小</td>
+                            </tr>
+                            <tr>
+                                <td><strong>11年级</strong></td>
+                                <td>AP Lang + AP Phys C/Chem + AP Music Theory</td>
+                                <td>4-6 门</td>
+                                <td>⭐⭐⭐ 核心冲刺</td>
+                            </tr>
+                            <tr>
+                                <td><strong>12年级</strong></td>
+                                <td>AP Lit / Stats / Psych（选2门）</td>
+                                <td>6-7 门</td>
+                                <td>⭐⭐⭐ 收官</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ===== Section 5: PE/Health Details ===== -->
+                <div class="section" id="pe">
+                    <h2 class="section-title">🏃 五、PE / Health 详解</h2>
+                    <p class="section-desc">MIHS PE 选课指南 — 9年级怎么选、怎么拿 A。</p>
+
+                    <div class="highlight-box">
+                        <div class="quote">
+                            ⚠️ <strong>Health 和 PE 是两门完全不同的课。</strong><br>
+                            Health = 坐在教室里学健康知识（作业+考试给分）<br>
+                            PE = 运动实践课（按态度/参与度给分）
+                        </div>
+                    </div>
+
+                    <h3 style="margin:25px 0 15px;">MIHS PE/Health 毕业要求</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>类型</th><th>数量</th><th>说明</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>PE</td><td>3 学期（1.5 credits）</td><td>至少 1 学期必须是 regular PE class</td></tr>
+                                <tr><td>Health</td><td>1 学期（0.5 credits）</td><td>课堂理论课</td></tr>
+                                <tr><td><strong>合计</strong></td><td><strong>4 学期，2.0 credits</strong></td><td></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin:25px 0 15px;">MIHS 所有 PE 选项（9-12年级）</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>课程</th><th>代码</th><th>运动内容</th><th>有跑步/游泳？</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>PE Net Sports</strong> ⭐</td>
+                                    <td>KPE350</td>
+                                    <td>羽毛球、匹克球、乒乓球、排球、室内足球、飞盘、地掷球</td>
+                                    <td>❌ 没有</td>
+                                </tr>
+                                <tr>
+                                    <td>Walk for Fitness</td>
+                                    <td>KPE335</td>
+                                    <td>户外走路、徒步、定向越野、geocaching</td>
+                                    <td>🚶 走路（不是跑步）</td>
+                                </tr>
+                                <tr>
+                                    <td>Personal Fitness & Weight Training</td>
+                                    <td>KPE400</td>
+                                    <td>举重、哑铃、壶铃、健身器械、体能训练</td>
+                                    <td>❌ 没有</td>
+                                </tr>
+                                <tr>
+                                    <td>Yoga</td>
+                                    <td>KPE320</td>
+                                    <td>瑜伽、呼吸、拉伸、平衡</td>
+                                    <td>❌ 没有</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="highlight-box">
+                        <div class="quote">
+                            <strong>关键事实：MIHS 没有游泳课，没有跑步课。</strong><br>
+                            所有 PE 课程都不需要游泳，最剧烈的运动大概是 Net Sports 里的室内足球。
+                        </div>
+                    </div>
+
+                    <h3 style="margin:25px 0 15px;">9年级 PE 推荐方案</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>学期</th><th>课程</th><th>类型</th><th>内容</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>上学期</strong></td>
+                                    <td>Health（HFL100 Image Health）</td>
+                                    <td><span class="tag required">必修</span></td>
+                                    <td>课堂理论课（营养/心理/健康知识），靠作业考试拿 A</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>下学期</strong></td>
+                                    <td>PE Net Sports（KPE350）⭐</td>
+                                    <td><span class="tag required">必修</span></td>
+                                    <td>羽毛球/匹克球/乒乓球/排球/飞盘等，按态度给分，不按运动能力</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin:20px 0 12px;">为什么 Net Sports 最适合大宝？</h3>
+                    <div class="card-grid">
+                        <div class="card green">
+                            <div class="icon">🏸</div>
+                            <h3>羽毛球基础</h3>
+                            <p>Net Sports 第一项就是 <strong>badminton</strong>，大宝有国内基础，上手快，容易建立信心。</p>
+                        </div>
+                        <div class="card blue">
+                            <div class="icon">🙅‍♀️</div>
+                            <h3>不涉及跑步</h3>
+                            <p>Net Sports 全是球类和趣味游戏，没有跑步环节，完全避开大宝的不喜欢。</p>
+                        </div>
+                        <div class="card purple">
+                            <div class="icon">📏</div>
+                            <h3>身高优势</h3>
+                            <p>羽毛球、排球都对高个子有利，大宝的身高是天然优势。</p>
+                        </div>
+                        <div class="card orange">
+                            <div class="icon">👥</div>
+                            <h3>社交利器</h3>
+                            <p>球类是天然社交场景，双打配合能快速交到朋友。</p>
+                        </div>
+                    </div>
+
+                    <h3 style="margin:25px 0 15px;">PE 给分标准（官网原话）</h3>
+                    <div class="highlight-box">
+                        <div class="quote">
+                            <strong>"Grades are based on effort, attitude, sportsmanship, cooperation, attention, and preparedness."</strong><br><br>
+                            翻译：<strong>按态度给分，不按运动能力。</strong>
+                        </div>
+                    </div>
+
+                    <h3 style="margin:20px 0 12px;">拿 A 的三个铁律</h3>
+                    <div class="card-grid">
+                        <div class="card blue">
+                            <h3>1. 穿对衣服</h3>
+                            <p>运动鞋、运动服、不戴首饰（MIHS PE dress code）</p>
+                        </div>
+                        <div class="card green">
+                            <h3>2. 积极参与</h3>
+                            <p>每次都上场，哪怕打得不好。态度 > 技术。</p>
+                        </div>
+                        <div class="card purple">
+                            <h3>3. 不抱怨</h3>
+                            <p>配合老师、友好对待同学、不说"这个运动没意思"。</p>
+                        </div>
+                    </div>
+
+                    <h3 style="margin:25px 0 15px;">10-11年级 PE 路线</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>年级</th><th>学期</th><th>课程</th><th>说明</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="2"><strong>10年级</strong></td>
+                                    <td>S1</td>
+                                    <td>Personal Fitness & Weight Training（KPE400）</td>
+                                    <td>学会举铁/健身，终身受益</td>
+                                </tr>
+                                <tr>
+                                    <td>S2</td>
+                                    <td>Walk for Fitness（KPE335）或 Yoga（KPE320）</td>
+                                    <td>放松减压，容易拿 A</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>11年级</strong></td>
+                                    <td>S1 或 S2</td>
+                                    <td>Yoga 或 Walk for Fitness</td>
+                                    <td>学业忙的时候轻松度过</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="highlight-box">
+                        <div class="quote">
+                            💡 <strong>小贴士：</strong>Personal Fitness 课会教正确举铁方法（用 PLT4M app），对长期健身非常有帮助。11年级学业压力大时，Yoga 是最好的减压选择。
+                        </div>
+                    </div>
+                </div>
+
+            <!-- ===== Section 6: Extracurriculars ===== -->
+            <div class="section" id="activities">
+                <h2 class="section-title">🏆 六、课外活动规划</h2>
+                <p class="section-desc">UW 喜欢"2-4 项长期、有深度的投入"，不是"10 项浅尝辄止"。</p>
+
+                <div class="card-grid">
+                    <div class="card purple">
+                        <div class="icon">🎵</div>
+                        <h3>古筝 / 音乐</h3>
+                        <ul>
+                            <li><strong>时间：</strong>每周 3-4 小时</li>
+                            <li><strong>目标：</strong>Orchestra → Chamber Orchestra → 社区教学</li>
+                            <li><strong>深度：</strong>9年级参加 Orchestra，11年级争取乐队领导角色，12年级古筝社区项目</li>
+                            <li><strong>为什么重要：</strong>美国高中稀缺的中国文化资源，UW 文书中差异化亮点</li>
+                        </ul>
+                    </div>
+                    <div class="card blue">
+                        <div class="icon">💻</div>
+                        <h3>学术类俱乐部</h3>
+                        <ul>
+                            <li><strong>时间：</strong>每周 1-2 小时</li>
+                            <li><strong>目标：</strong>Coding Club / Writing Club → 11年级当 Officer</li>
+                            <li><strong>深度：</strong>9-10年级探索，11年级 Leadership</li>
+                            <li><strong>为什么重要：</strong>展示学术热情 + 领导力</li>
+                        </ul>
+                    </div>
+                    <div class="card green">
+                        <div class="icon">🤝</div>
+                        <h3>社区服务</h3>
+                        <ul>
+                            <li><strong>时间：</strong>每月 2-4 小时</li>
+                            <li><strong>目标：</strong>同一项目持续 2 年以上（如教老人用电脑、中文文化推广）</li>
+                            <li><strong>深度：</strong>10年级开始，有具体成果</li>
+                            <li><strong>为什么重要：</strong>UW 看重社区影响力和持续投入</li>
+                        </ul>
+                    </div>
+                    <div class="card orange">
+                        <div class="icon">🏀</div>
+                        <h3>体育（选1项）</h3>
+                        <ul>
+                            <li><strong>时间：</strong>每周 3-5 小时</li>
+                            <li><strong>目标：</strong>加入校队或俱乐部（网球/lacrosse/swimming）</li>
+                            <li><strong>深度：</strong>9-10年级参与，展示团队精神</li>
+                            <li><strong>为什么重要：</strong>最简单的交友方式，也是美国文化的一部分</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box mt-20">
+                    <div class="quote">
+                        <strong>活动时间上限：</strong>9-10年级 ≤ 10 小时/周（含运动），11年级 ≤ 15 小时/周。<br>
+                        <strong>铁律：永远不要影响学业 GPA。</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Section 7: Questions for Counselor ===== -->
+            <div class="section" id="questions">
+                <h2 class="section-title">🗣️ 七、与顾问老师面谈 — 20个关键问题</h2>
+                <p class="section-desc">按优先级排列 —  starred 问题是必须问的核心问题。</p>
+
+                <p class="question-category">📌 选课类（最核心）</p>
+                <ul class="question-list">
+                    <li><span class="q-number">1</span> 以她 ELL Level 3+ 和数学基础来看，<strong>English 9 普通班还是 Honors？</strong>您的建议是什么？</li>
+                    <li><span class="q-number">2</span> 数学 Placement 考试什么时候？怎么准备？考什么内容？</li>
+                    <li><span class="q-number">3</span> 9年级科学课选 <strong>Chemistry 1 还是 Physics 1</strong> 对 ELL 学生更友好？</li>
+                    <li><span class="q-number">4</span> ELL 学生通常几年能升到 Honors English？典型路径是怎样的？</li>
+                    <li><span class="q-number">5</span> 10年级可以同时选 <strong>AP Chinese + AP CSA</strong> 吗？ workload 扛得住吗？</li>
+                </ul>
+
+                <p class="question-category mt-20">📌 学术支持类</p>
+                <ul class="question-list">
+                    <li><span class="q-number">6</span> MIHS 给 ELL 学生提供哪些额外支持？每周/每月几次？</li>
+                    <li><span class="q-number">7</span> 学校有课后辅导（tutoring）项目吗？怎么参加？</li>
+                    <li><span class="q-number">8</span> 如果某门课成绩不理想，有 <strong>retake / grade recovery</strong> 政策吗？</li>
+                </ul>
+
+                <p class="question-category mt-20">📌 课外活动类</p>
+                <ul class="question-list">
+                    <li><span class="q-number">9</span> 对音乐和编程感兴趣的学生，您推荐哪些 club？</li>
+                    <li><span class="q-number">10</span> 社区服务（community service）有毕业要求吗？怎么找机会？</li>
+                    <li><span class="q-number">11</span> 学校允许学生自己创立 club 吗？流程是什么？</li>
+                </ul>
+
+                <p class="question-category mt-20">📌 升学规划类</p>
+                <ul class="question-list">
+                    <li><span class="q-number">12</span> 学校有专门的 college counselor 吗？什么时候开始 college planning？</li>
+                    <li><span class="q-number">13</span> MIHS 往届成功申请 UW 的学生，有什么共同特点？</li>
+                    <li><span class="q-number">14</span> 有推荐的暑期项目吗？（UW / CMU / BU 等）</li>
+                </ul>
+
+                <p class="question-category mt-20">⭐ 确认四年路线（核心中的核心）</p>
+                <ul class="question-list">
+                    <li><span class="q-number">15</span> <strong>"我带来的这份四年选课计划，以她目前水平来看现实吗？有没有需要调整的？"</strong></li>
+                    <li><span class="q-number">16</span> <strong>"有没有什么重要的课程我漏掉了？UW 特别看重但我没考虑到的？"</strong></li>
+                    <li><span class="q-number">17</span> <strong>"每个学年末，我们应该达到什么里程碑？怎么衡量进步？"</strong></li>
+                    <li><span class="q-number">18</span> MIHS 有 Running Start 或 dual enrollment 项目吗？什么时候可以参加？</li>
+                    <li><span class="q-number">19</span> 如果她高中后期想申请 CS 专业，选课上需要提前做什么准备？</li>
+                    <li><span class="q-number">20</span> 作为国际学生，在申请 UW 时有什么特别的注意事项吗？</li>
+                </ul>
+            </div>
+
+            <!-- ===== Section 8: Milestones Timeline ===== -->
+            <div class="section" id="timeline">
+                <h2 class="section-title">📅 八、关键时间节点</h2>
+                <p class="section-desc">四年里程碑 — 每个节点应该达到什么状态。</p>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="time">2026年9月</div>
+                        <div class="event">数学 Placement 考试 → 争取进 Honors<br>确定课外活动方向，报名 2-3 个 club</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time">2026年10月</div>
+                        <div class="event">第一次 Parent-Teacher Conference<br>了解各科老师反馈，调整学习策略</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time">2026年11月</div>
+                        <div class="event">第一次期中考试<br>检查 GPA 状态和英语适应情况</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time">2027年1月</div>
+                        <div class="event">第一学期末<br>目标：GPA ≥ 3.5，英语有明显进步</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time">2027年6月</div>
+                        <div class="event">9年级学年末<br>目标：GPA ≥ 3.7，确定 10 年级课程</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time">2027年暑假</div>
+                        <div class="event">探索型夏校（UW / CMU / BU）<br>为 10 年级找兴趣方向</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time">2028年1月</div>
+                        <div class="event">10年级第一学期末<br>锁定 11 年级 AP 选课</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time">2028年暑假</div>
+                        <div class="event">UW Personal Statement 初稿<br>开始文书 brainstorming</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time">2028年11月</div>
+                        <div class="event">UW 申请提交（Regular Decision 截止）</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time">2029年3-5月</div>
+                        <div class="event">UW 放榜 + 最终决定</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Section 9: Emergency Plans ===== -->
+            <div class="section" id="emergency">
+                <h2 class="section-title">🆘 九、应急预案</h2>
+                <p class="section-desc">如果遇到困难 — 提前想好退路，不慌张。</p>
+
+                <div class="emergency-grid">
+                    <div class="emergency-item">
+                        <div class="problem">⚠️ 英语成绩低于 B</div>
+                        <div class="solution">
+                            暑假报英语强化班 / 请家教<br>
+                            每天增加 30 分钟英文阅读<br>
+                            利用 ELL 课后支持资源
+                        </div>
+                    </div>
+                    <div class="emergency-item">
+                        <div class="problem">⚠️ 数学 Placement 没进 Honors</div>
+                        <div class="solution">
+                            10年级再考一次 Placement<br>
+                            自学 + 用竞赛成绩证明能力<br>
+                            给学校看学习成果，争取跳级
+                        </div>
+                    </div>
+                    <div class="emergency-item">
+                        <div class="problem">⚠️ 第一学期 GPA < 3.5</div>
+                        <div class="solution">
+                            找出弱科具体原因（词汇？概念？习惯？）<br>
+                            针对性补课，寒假重点突破<br>
+                            利用 school year 中的 retake 政策
+                        </div>
+                    </div>
+                    <div class="emergency-item">
+                        <div class="problem">⚠️ 社交适应困难</div>
+                        <div class="solution">
+                            通过古筝 / 篮球 / Club 交朋友<br>
+                            不急于求成，给自己 3-6 个月<br>
+                            和顾问 / ELL 老师聊，寻求建议
+                        </div>
+                    </div>
+                    <div class="emergency-item">
+                        <div class="problem">⚠️ ELL 升级慢</div>
+                        <div class="solution">
+                            每个 Level 可能需要 1-2 学期，正常现象<br>
+                            大量英文输入（阅读 + 听力）<br>
+                            课堂上大胆说，不怕犯错
+                        </div>
+                    </div>
+                    <div class="emergency-item">
+                        <div class="problem">⚠️ AP 课程压力太大</div>
+                        <div class="solution">
+                            11年级如果扛不住，12年级再补 AP<br>
+                            UW 看的是整体趋势，不是某一年<br>
+                            质量 > 数量，适当减 AP 保 GPA
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Section 10: Summary Quote ===== -->
+            <div class="section">
+                <div class="highlight-box">
+                    <div class="quote" style="font-size:1.2em; text-align:center;">
+                        "大宝的数学能力不错，古筝有特长，主要短板是英文。<br>
+                        我们希望通过这四年，逐步提升学术英语能力，保持 GPA 3.8+，<br>
+                        利用古筝特长展示个性，最终进入 UW。<br>
+                        我们希望和学校紧密配合，在课程选择上既挑战她又保护她，<br>
+                        给她一个扎实且有成长的高中四年。"
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Print Section ===== -->
+            <div class="print-section">
+                <h3>🖨️ 面谈打印建议</h3>
+                <p>建议打印 2 份：一份自己用，一份给顾问老师。<br>在浏览器中按 <strong>⌘ + P</strong> 即可打印，会自动隐藏导航栏。</p>
+                <button class="print-btn" onclick="window.print()">🖨️ 打印此页面</button>
+            </div>
+
+        </div>
+
+        <!-- ===== Footer ===== -->
+        <footer>
+            <p>大宝四年美高规划 · 与顾问沟通用 · 2026年8月</p>
+            <p style="margin-top:5px;">MIHS → UW | GPA 3.8+ | 6-7 AP | 古筝特长 | 长期深度投入</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scroll for nav links
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
