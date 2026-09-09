@@ -32,7 +32,8 @@ export function middleware(request: NextRequest) {
     pathname === '/elsa-tracker.html' ||
     pathname === '/elsa-counselor-checklist.html' ||
     pathname === '/javis-tracker.html' ||
-    pathname === '/cyrus-tracker.html'
+    pathname === '/cyrus-tracker.html' ||
+    pathname === '/family-rules.html'
   ) {
     return NextResponse.next()
   }

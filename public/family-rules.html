@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家庭每日规范 · 学习与生活</title>
+<style>
+@page { size: A4 landscape; margin: 8mm 10mm; }
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; }
+  .page { margin: 0; box-shadow: none; page-break-after: always; }
+  .page:last-child { page-break-after: auto; }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  font-size: 8pt; line-height: 1.35; color: #2c2416;
+  background: #f0ebe4; padding: 16px 0;
+}
+input, textarea { font-family: inherit; }
+
+.no-print {
+  text-align: center; padding: 10px 20px;
+}
+.no-print button {
+  padding: 12px 30px; font-size: 13pt; border: none; border-radius: 8px;
+  cursor: pointer; color: #fff; margin: 4px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+}
+.no-print button:hover { opacity: 0.88; }
+.btn-p { background: linear-gradient(135deg,#e8734a,#d63384); }
+.btn-r { background: #c0392b; }
+.no-print .hint { font-size: 9pt; color: #888; margin-top: 8px; }
+
+.page {
+  width: 277mm; min-height: 185mm;
+  background: #fff;
+  margin: 0 auto 16px;
+  padding: 10mm 12mm;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  border-radius: 4px;
+  position: relative;
+}
+
+/* ============ PAGE 1: DAILY SCHEDULE ============ */
+.sch-hd {
+  text-align: center; padding-bottom: 8px; margin-bottom: 8px;
+  border-bottom: 3px solid #333;
+}
+.sch-hd h1 {
+  font-size: 16pt; letter-spacing: 3px;
+  background: linear-gradient(135deg,#e8734a,#d63384);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.sch-hd .sub { font-size: 8pt; color: #888; margin-top: 4px; }
+
+.timeline { margin-bottom: 8px; }
+.tl-row {
+  display: flex; align-items: stretch; margin-bottom: 3px;
+  border-radius: 5px; overflow: hidden;
+}
+.tl-time {
+  width: 42mm; min-width: 42mm;
+  padding: 5px 8px; text-align: right;
+  font-weight: 700; font-size: 8pt;
+  color: #fff; display: flex; flex-direction: column; justify-content: center;
+}
+.tl-time .t { font-size: 9pt; }
+.tl-time .d { font-size: 6.5pt; opacity: 0.85; font-weight: 400; }
+.tl-body {
+  flex: 1; padding: 5px 10px;
+  border: 1px solid #e8e5e0; border-left: none;
+  background: #fafaf8; font-size: 7.5pt; line-height: 1.4;
+}
+.tl-body .tb { font-weight: 600; color: #333; }
+.tl-body .td { color: #666; font-size: 7pt; margin-top: 1px; }
+.tl-body .tt { font-size: 6.5pt; color: #999; margin-top: 2px; font-style: italic; }
+
+.c-mom  { background: #e8734a; }
+.c-k1   { background: #4a90d9; }
+.c-k2   { background: #f0ad4e; color: #333; }
+.c-k3   { background: #e74c8c; }
+.c-all  { background: #6c5ce7; }
+
+/* Color tag */
+.tag { display: inline-block; font-size: 6pt; padding: 1px 5px; border-radius: 3px; margin-left: 3px; font-weight: 600; vertical-align: middle; }
+.tag-mom { background: #ffe8e0; color: #e8734a; }
+.tag-k1  { background: #e0efff; color: #4a90d9; }
+.tag-k2  { background: #fff5e0; color: #e67e22; }
+.tag-k3  { background: #ffe0f0; color: #e74c8c; }
+
+/* ============ PAGE 2: RULES ============ */
+.rule-hd {
+  text-align: center; padding-bottom: 8px; margin-bottom: 8px;
+  border-bottom: 3px solid #333;
+}
+.rule-hd h1 {
+  font-size: 16pt; letter-spacing: 3px;
+  background: linear-gradient(135deg,#4a90d9,#357abd);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.rule-hd .sub { font-size: 8pt; color: #888; margin-top: 4px; }
+
+.rule-sec { margin-bottom: 8px; }
+.rule-sec-hd {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 12px; border-radius: 6px;
+  color: #fff; font-weight: 700; font-size: 10pt;
+  margin-bottom: 5px;
+}
+.rsh-mom { background: linear-gradient(135deg,#e8734a,#d63031); }
+.rsh-k1  { background: linear-gradient(135deg,#4a90d9,#2980b9); }
+.rsh-k2  { background: linear-gradient(135deg,#f0ad4e,#e67e22); }
+.rsh-k3  { background: linear-gradient(135deg,#e74c8c,#c0392b); }
+.rsh-gen { background: linear-gradient(135deg,#6c5ce7,#a29bfe); }
+.rsh-dp  { background: linear-gradient(135deg,#00b894,#55efc4); color: #333; }
+
+.rule-grid {
+  display: grid; gap: 4px;
+}
+.rule-item {
+  display: flex; align-items: flex-start; gap: 6px;
+  padding: 4px 8px; border-radius: 4px;
+  background: #fafaf8; font-size: 7.5pt; line-height: 1.4;
+}
+.rule-item .ri-num {
+  width: 16px; height: 16px; min-width: 16px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 7pt; font-weight: 700; color: #fff; margin-top: 1px;
+}
+.rn-mom { background: #e8734a; }
+.rn-k1  { background: #4a90d9; }
+.rn-k2  { background: #f0ad4e; color: #333; }
+.rn-k3  { background: #e74c8c; }
+.rn-gen { background: #6c5ce7; }
+.rn-dp  { background: #00b894; }
+.rule-item .ri-txt { flex: 1; }
+.rule-item .ri-txt b { color: #333; }
+
+.rule-grid-2 { grid-template-columns: 1fr 1fr; }
+.rule-grid-1 { grid-template-columns: 1fr; }
+
+/* Computer rules special */
+.comp-box {
+  background: linear-gradient(135deg,#fff5f5,#fff0f0);
+  border: 2px solid #e74c3c; border-radius: 8px;
+  padding: 8px 12px; margin-top: 5px;
+}
+.comp-box h3 { font-size: 8.5pt; color: #c0392b; margin-bottom: 5px; }
+.comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.comp-item {
+  background: #fff; border-radius: 4px; padding: 4px 8px;
+  font-size: 7pt; line-height: 1.4; border-left: 3px solid #e74c3c;
+}
+
+/* ============ PAGE 3: REWARD SYSTEM ============ */
+.rew-hd {
+  text-align: center; padding-bottom: 8px; margin-bottom: 8px;
+  border-bottom: 3px solid #333;
+}
+.rew-hd h1 {
+  font-size: 16pt; letter-spacing: 3px;
+  background: linear-gradient(135deg,#f1c40f,#e67e22);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.rew-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+  margin-bottom: 8px;
+}
+.rew-card {
+  border: 2px solid #e8e5e0; border-radius: 8px;
+  padding: 8px; text-align: center;
+}
+.rew-card .rc-icon { font-size: 24pt; }
+.rew-card .rc-title { font-size: 9pt; font-weight: 700; margin: 4px 0; }
+.rew-card .rc-desc { font-size: 7pt; color: #666; line-height: 1.5; }
+.rew-card.rc-daily { border-color: #4a90d9; }
+.rew-card.rc-weekly { border-color: #f1c40f; }
+.rew-card.rc-monthly { border-color: #e74c8c; }
+
+.chore-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;
+  margin-bottom: 8px;
+}
+.chore-card {
+  border-radius: 6px; padding: 6px 8px; color: #fff; font-size: 7pt;
+}
+.chore-card .cc-name { font-size: 9pt; font-weight: 700; margin-bottom: 3px; }
+.chore-card .cc-item { margin: 1px 0; font-size: 6.5pt; opacity: 0.95; }
+.chore-card.cc-mom { background: #e8734a; }
+.chore-card.cc-k1  { background: #4a90d9; }
+.chore-card.cc-k2  { background: #f0ad4e; color: #333; }
+.chore-card.cc-k3  { background: #e74c8c; }
+
+.footer-note {
+  text-align: center; font-size: 7pt; color: #aaa;
+  border-top: 1px solid #eee; padding-top: 5px; margin-top: 8px;
+  font-style: italic;
+}
+</style>
+</head>
+<body>
+
+<div class="no-print">
+  <div style="margin-bottom:6px;font-size:10pt;color:#555">🏠 家庭每日规范 &nbsp;|&nbsp; 共 3 页（日程 / 规则 / 奖惩）</div>
+  <button class="btn-p" onclick="window.print()">🖨️ 打印全部</button>
+  <button class="btn-r" onclick="if(confirm('重置所有自定义内容？'))location.reload()">🔄 重置</button>
+  <div class="hint">建议 A4 横向打印 | 可以贴在家里显眼的位置</div>
+</div>
+
+<!-- ==================== PAGE 1: DAILY SCHEDULE ==================== -->
+<div class="page">
+  <div class="sch-hd">
+    <h1>📋 家庭每日时间规划</h1>
+    <div class="sub">目标：3 点前完成做饭和家务 → 3 点后专注辅导孩子学习 → 建立规律生活</div>
+  </div>
+
+  <div class="timeline">
+    <!-- Morning -->
+    <div class="tl-row">
+      <div class="tl-time c-mom"><div class="t">6:00 – 6:45</div><div class="d">早起备餐</div></div>
+      <div class="tl-body">
+        <div class="tb">👩‍🍳 妈妈：做早餐 + 准备午餐（Bento）</div>
+        <div class="td">大宝二宝午餐盒提前装好；三宝早餐准备好</div>
+        <div class="tt">💡 早餐：包子/面包+鸡蛋+牛奶+水果 &nbsp;|&nbsp; 午餐：利用晚餐剩菜或多做的肉类</div>
+      </div>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-time c-k1"><div class="t">7:00 – 7:15</div><div class="d">大宝早餐+出发</div></div>
+      <div class="tl-body">
+        <div class="tb">👦 大宝：吃早餐 → <b>7:15 出发 → 8:00 到校</b></div>
+        <div class="td">妈妈检查书包、午餐盒是否带齐</div>
+      </div>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-time c-k2"><div class="t">7:15 – 7:25</div><div class="d">二宝早餐+出发</div></div>
+      <div class="tl-body">
+        <div class="tb">👦 二宝：吃早餐 → <b>7:25 出发 → 7:57 到班车点</b></div>
+        <div class="td">妈妈检查水壶、书包</div>
+      </div>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-time c-k3"><div class="t">7:30 – 9:00</div><div class="d">三宝在家活动</div></div>
+      <div class="tl-body">
+        <div class="tb">👶 三宝在家：早餐后自由活动 / 绘本 / 玩具 / 教育视频</div>
+        <div class="td">9月16号前三宝全天在家 &nbsp;|&nbsp; 这段时间妈妈一边陪三宝一边处理简单事务</div>
+      </div>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-time c-all"><div class="t">8:30 – 11:30</div><div class="d">妈妈完整工作时间</div></div>
+      <div class="tl-body">
+        <div class="tb">💻 9/16后：三宝在学校 → 妈妈有 <b>3 小时完整时间</b>专注工作/学习</div>
+        <div class="td">9/16前：三宝在家，妈妈见缝插针处理简单事务</div>
+        <div class="tt">10:00-10:45：运动时间（网球/跑步/瑜伽）&nbsp;|&nbsp; 11:00-11:15：快速午餐</div>
+      </div>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-time c-k3"><div class="t">11:15 – 15:00</div><div class="d">三宝在家 + 晚餐预备</div></div>
+      <div class="tl-body">
+        <div class="tb">👶 <b>9/16后</b>：11:30 放学 → 接三宝回家 → 水果/点心 → 教育视频</div>
+        <div class="td">这段时间三宝一直在家 &nbsp;|&nbsp; 妈妈陪三宝 + 准备晚餐食材（洗切/腌制/炖汤）</div>
+      </div>
+    </div>
+
+    <!-- Critical block -->
+    <div class="tl-row" style="background:linear-gradient(135deg,#fff8f0,#fff0f0)">
+      <div class="tl-time c-all" style="background:linear-gradient(135deg,#e8734a,#d63031)"><div class="t">15:00 – 18:00</div><div class="d">★ 核心学习时段 ★</div></div>
+      <div class="tl-body" style="background:#fff5f0">
+        <div class="tb">📚 大宝+二宝作业 + Khan + 单词 &nbsp;|&nbsp; 三宝安静活动</div>
+        <div class="td">
+          <span class="tag tag-k1">大宝</span> 学校作业(Eng9/Chem/ELA/ELL) → Khan Math → 英文阅读<br>
+          <span class="tag tag-k2">二宝</span> 学校作业(Eng6/数学/科学) → Khan 数学7 → 单词<br>
+          <span class="tag tag-k3">三宝</span> 教育视频/绘本/拼图（安静不打扰哥哥）
+        </div>
+        <div class="tt">⏰ 15:00-15:05 各就各位 &nbsp;|&nbsp; 15:05-16:00 第一段 &nbsp;|&nbsp; 16:00-16:10 休息 &nbsp;|&nbsp; 16:10-17:10 第二段 &nbsp;|&nbsp; 17:10-17:30 检查订正</div>
+      </div>
+    </div>
+
+    <!-- Dinner -->
+    <div class="tl-row">
+      <div class="tl-time c-mom"><div class="t">18:00 – 18:30</div><div class="d">晚餐时间</div></div>
+      <div class="tl-body">
+        <div class="tb">🍽️ 全家晚餐</div>
+        <div class="td">下午已预处理，15-20 分钟快炒即可上桌</div>
+      </div>
+    </div>
+
+    <!-- Chores -->
+    <div class="tl-row">
+      <div class="tl-time c-k1"><div class="t">18:30 – 19:00</div><div class="d">家务时间</div></div>
+      <div class="tl-body">
+        <div class="tb">🧹 大宝+二宝：洗碗 / 擦台面 / 扫地 / 倒垃圾</div>
+        <div class="td">按周几分工表执行（周一三五扫地系 / 周二四六洗碗系）</div>
+      </div>
+    </div>
+
+    <!-- Exercise -->
+    <div class="tl-row">
+      <div class="tl-time c-all"><div class="t">19:00 – 20:00</div><div class="d">运动时间</div></div>
+      <div class="tl-body">
+        <div class="tb">🏓 全家外出运动</div>
+        <div class="td">公园散步 / 跑步 / 打球 / 骑自行车（1小时）</div>
+      </div>
+    </div>
+
+    <!-- Study block 2 -->
+    <div class="tl-row">
+      <div class="tl-time c-all" style="background:linear-gradient(135deg,#4a90d9,#2980b9)"><div class="t">20:00 – 21:15</div><div class="d">晚间学习巩固</div></div>
+      <div class="tl-body" style="background:#f5f9ff">
+        <div class="tb">📖 Khan 练习 + 英文单词 + 课外阅读</div>
+        <div class="td">
+          <span class="tag tag-k1">大宝</span> Khan Math 15min + 英文单词 20-30个 + 课外阅读<br>
+          <span class="tag tag-k2">二宝</span> Khan Academy 15min + 英文单词 20个<br>
+          <span class="tag tag-k3">三宝</span> 中文学习 / 认字卡片 / 睡前绘本
+        </div>
+      </div>
+    </div>
+
+    <!-- Wind down -->
+    <div class="tl-row">
+      <div class="tl-time c-all"><div class="t">21:15 – 22:00</div><div class="d">睡前准备</div></div>
+      <div class="tl-body">
+        <div class="tb">🛁 洗漱 + 整理书包 + 准备次日衣物</div>
+        <div class="td">大宝二宝自己整理书包和衣服 &nbsp;|&nbsp; 三宝刷牙洗脸 + 睡前故事</div>
+      </div>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-time c-all" style="background:#555"><div class="t">22:00</div><div class="d">熄灯睡觉</div></div>
+      <div class="tl-body">
+        <div class="tb">😴 大宝/二宝 22:00 熄灯 &nbsp;|&nbsp; 三宝 21:30 熄灯</div>
+        <div class="td">保障 8-9 小时睡眠，第二天 6:00 精力充沛</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    💡 核心原则：3 点前妈妈完成做饭和家务 → 3 点后妈妈全身心辅导孩子 → 建立规律 = 减少争吵 → 全家轻松
+  </div>
+</div>
+
+<!-- ==================== PAGE 2: RULES ============ -->
+<div class="page">
+  <div class="rule-hd">
+    <h1>📏 家庭规则与规范</h1>
+    <div class="sub">写在纸上 = 执行有依据 &nbsp;|&nbsp; 全家人共同遵守</div>
+  </div>
+
+  <!-- Computer Rules -->
+  <div class="comp-box">
+    <h3>🖥️ 电脑 / iPad / 手机使用规则（重点）</h3>
+    <div class="comp-grid">
+      <div class="comp-item"><b>上学日（周一至周五）</b><br>❌ 上学日前一天晚上到放学后，禁止玩电脑/手机游戏<br>✅ 只能用于学习（查资料、Khan Academy、学校项目）<br>⏰ 学习用途每次不超过 30 分钟，需妈妈同意</div>
+      <div class="comp-item"><b>周末</b><br>✅ 周六日可申请电脑时间，每次 ≤ 45 分钟<br>✅ 必须先完成所有作业和学习任务才能申请<br>❌ 不能连续玩两场（玩完需要休息 30 分钟才能再玩）<br>📱 手机/ iPad 游戏类 App 一律删除或家长锁定</div>
+    </div>
+  </div>
+
+  <!-- Mom rules -->
+  <div class="rule-sec">
+    <div class="rule-sec-hd rsh-mom"><span>👩‍🍳</span><span>妈妈的责任与规范</span></div>
+    <div class="rule-grid rule-grid-1">
+      <div class="rule-item"><div class="ri-num rn-mom">1</div><div class="ri-txt"><b>3 点前完成做饭 + 家务</b>，确保 3 点后有完整时间辅导孩子</div></div>
+      <div class="rule-item"><div class="ri-num rn-mom">2</div><div class="ri-txt"><b>3-6 点不接电话/不看手机</b>（除非紧急），专注陪孩子学习</div></div>
+      <div class="rule-item"><div class="ri-num rn-mom">3</div><div class="ri-txt"><b>先肯定，再指出问题</b> — 多鼓励"你今天这个题做对了！"，少说"你怎么又错了"</div></div>
+      <div class="rule-item"><div class="ri-num rn-mom">4</div><div class="ri-txt"><b>三宝闹觉时先安抚</b>，不强行塞给大宝二宝；三宝安静后立即回书房辅导</div></div>
+      <div class="rule-item"><div class="ri-num rn-mom">5</div><div class="ri-txt"><b>晚饭后不留书面作业</b>，如果作业没做完说明 3-6 点效率太低，需要调整</div></div>
+    </div>
+  </div>
+
+  <!-- 大宝 rules -->
+  <div class="rule-sec">
+    <div class="rule-sec-hd rsh-k1"><span>👦</span><span>大宝（Shanru · 9年级）行为规范</span></div>
+    <div class="rule-grid rule-grid-2">
+      <div class="rule-item"><div class="ri-num rn-k1">1</div><div class="ri-txt"><b>电脑使用</b>：上学日禁止玩电脑游戏；学习用途需妈妈同意并限时 30 分钟</div></div>
+      <div class="rule-item"><div class="ri-num rn-k1">2</div><div class="ri-txt"><b>3 点回家先做作业</b>，不能先玩/先吃零食/先开电脑</div></div>
+      <div class="rule-item"><div class="ri-num rn-k1">3</div><div class="ri-txt"><b>作业顺序</b>：先学校作业（4科）→ 再 Khan Math → 最后英文阅读</div></div>
+      <div class="rule-item"><div class="ri-num rn-k1">4</div><div class="ri-txt"><b>不会的题先圈出来</b>，整页做完再统一问妈妈，不要做一道问一道</div></div>
+      <div class="rule-item"><div class="ri-num rn-k1">5</div><div class="ri-txt"><b>书桌保持整洁</b>，只有当前科目的书和本子，手机放另一个房间</div></div>
+      <div class="rule-item"><div class="ri-num rn-k1">6</div><div class="ri-txt"><b>单词背诵</b>：每天 20-30 个，用 Quizlet 或生词本，妈妈睡前抽查</div></div>
+      <div class="rule-item"><div class="ri-num rn-k1">7</div><div class="ri-txt"><b>家务</b>：周一三五扫地拖地+倒垃圾 / 周二四六洗碗擦台面 / 周日轮换厕所</div></div>
+      <div class="rule-item"><div class="ri-num rn-k1">8</div><div class="ri-txt"><b>22:00 准时熄灯</b>，手机放客厅充电，卧室只放闹钟</div></div>
+    </div>
+  </div>
+
+  <!-- 二宝 rules -->
+  <div class="rule-sec">
+    <div class="rule-sec-hd rsh-k2"><span>👦</span><span>二宝（Javis · 6年级）行为规范</span></div>
+    <div class="rule-grid rule-grid-2">
+      <div class="rule-item"><div class="ri-num rn-k2">1</div><div class="ri-txt"><b>坐得住</b>：写作业时屁股不离开椅子，橡皮不玩，不来回走动</div></div>
+      <div class="rule-item"><div class="ri-num rn-k2">2</div><div class="ri-txt"><b>番茄钟学习法</b>：25 分钟专注写作业 → 5 分钟休息（喝水/上厕所）→ 再 25 分钟</div></div>
+      <div class="rule-item"><div class="ri-num rn-k2">3</div><div class="ri-txt"><b>作业顺序</b>：先学校作业（Eng6+数学+科学）→ 再 Khan Academy → 最后单词</div></div>
+      <div class="rule-item"><div class="ri-num rn-k2">4</div><div class="ri-txt"><b>不会的题先标出来</b>，做完这科再统一问，不要 interrupting 妈妈</div></div>
+      <div class="rule-item"><div class="ri-num rn-k2">5</div><div class="ri-txt"><b>笔记整理</b>：每天放学前检查笔记本是否记了重点，英语生词是否有记录</div></div>
+      <div class="rule-item"><div class="ri-num rn-k2">6</div><div class="ri-txt"><b>单词背诵</b>：每天 20 个，大声读出来，妈妈睡前抽查</div></div>
+      <div class="rule-item"><div class="ri-num rn-k2">7</div><div class="ri-txt"><b>家务</b>：周一三五洗碗+擦台面 / 周二四六扫地 / 周日轮换厕所</div></div>
+      <div class="rule-item"><div class="ri-num rn-k2">8</div><div class="ri-txt"><b>22:00 准时熄灯</b>，睡前把第二天书包整理好</div></div>
+    </div>
+  </div>
+
+  <!-- 三宝 rules -->
+  <div class="rule-sec">
+    <div class="rule-sec-hd rsh-k3"><span>👶</span><span>三宝（Cyrus）行为规范</span></div>
+    <div class="rule-grid rule-grid-2">
+      <div class="rule-item"><div class="ri-num rn-k3">1</div><div class="ri-txt"><b>3 点回家后"安静 30 分钟"</b>：看教育视频 / 玩拼图 / 涂色 / 绘本，不大声喧哗</div></div>
+      <div class="rule-item"><div class="ri-num rn-k3">2</div><div class="ri-txt"><b>自己的玩具自己收</b>，玩完一样收好再玩下一样</div></div>
+      <div class="rule-item"><div class="ri-num rn-k3">3</div><div class="ri-txt"><b>自觉刷牙洗脸</b>：晚饭后自己刷牙，睡前洗脸洗脚</div></div>
+      <div class="rule-item"><div class="ri-num rn-k3">4</div><div class="ri-txt"><b>按时午睡</b>：放学回家后如果不困，可以安静看书/玩玩具代替午睡</div></div>
+      <div class="rule-item"><div class="ri-num rn-k3">5</div><div class="ri-txt"><b>不打扰哥哥做作业</b>：哥哥做作业时，三宝去自己的小角落玩</div></div>
+      <div class="rule-item"><div class="ri-num rn-k3">6</div><div class="ri-txt"><b>21:00 开始睡前准备</b>：刷牙洗脸 → 选一本书 → 妈妈读绘本 → 21:30 熄灯</div></div>
+    </div>
+  </div>
+
+  <!-- General rules -->
+  <div class="rule-sec">
+    <div class="rule-sec-hd rsh-gen"><span>🏠</span><span>全家共同规则</span></div>
+    <div class="rule-grid rule-grid-2">
+      <div class="rule-item"><div class="ri-num rn-gen">1</div><div class="ri-txt"><b>家人之间不用吼的</b> — 有话好好说，妈妈不会冤枉你们，你们也要信任妈妈</div></div>
+      <div class="rule-item"><div class="ri-num rn-gen">2</div><div class="ri-txt"><b>作业是自己的责任</b> — 不是为妈妈做，是为自己的将来学</div></div>
+      <div class="rule-item"><div class="ri-num rn-gen">3</div><div class="ri-txt"><b>家务是每个人的责任</b> — 每个人都要为家庭出一份力</div></div>
+      <div class="rule-item"><div class="ri-num rn-gen">4</div><div class="ri-txt"><b>先完成，再享受</b> — 作业做完才能玩，家务做完才能看电视</div></div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    💡 规则不是用来约束的，而是用来让每个人都知道该怎么做。全家一起遵守，一起进步！ 💕
+  </div>
+</div>
+
+<!-- ==================== PAGE 3: REWARDS & CHORES ============ -->
+<div class="page">
+  <div class="rew-hd">
+    <h1>🌟 奖励机制 & 家务分工</h1>
+    <div class="sub">好行为得到认可 = 更有动力 &nbsp;|&nbsp; 家务 = 家庭责任感</div>
+  </div>
+
+  <!-- Chore assignments -->
+  <div class="rule-sec">
+    <div class="rule-sec-hd rsh-dp"><span>🧹</span><span>每周家务分工</span></div>
+    <div class="chore-grid">
+      <div class="chore-card cc-mom">
+        <div class="cc-name">👩‍🍳 妈妈</div>
+        <div class="cc-item">👩‍🍳 一日三餐</div>
+        <div class="cc-item">👕 洗衣 / 晾衣服</div>
+        <div class="cc-item">🗄️ 收拾衣柜</div>
+        <div class="cc-item">👶 带三宝 / 整体管理</div>
+        <div class="cc-item">🛒 采购日用品</div>
+        <div class="cc-item">📋 下周计划</div>
+      </div>
+      <div class="chore-card cc-k1">
+        <div class="cc-name">👦 大宝</div>
+        <div class="cc-item">🧹 扫地 + 拖地（一三五）</div>
+        <div class="cc-item">🍽️ 洗碗 + 擦台面（二四六）</div>
+        <div class="cc-item">🗑️ 倒垃圾 + 换垃圾袋</div>
+        <div class="cc-item">🛋️ 学习桌 + 沙发</div>
+        <div class="cc-item">🔄 周日轮换：清理厕所</div>
+        <div class="cc-item">🧸 陪三宝玩</div>
+      </div>
+      <div class="chore-card cc-k2">
+        <div class="cc-name">👦 二宝</div>
+        <div class="cc-item">🍽️ 洗碗 + 擦台面（一三五）</div>
+        <div class="cc-item">🧹 扫地 + 拖地（二四六）</div>
+        <div class="cc-item">🛋️ 擦餐桌 + 餐凳</div>
+        <div class="cc-item">🛏️ 整理自己床铺</div>
+        <div class="cc-item">🔄 周日轮换：清理厕所</div>
+        <div class="cc-item">🧸 陪三宝玩</div>
+      </div>
+    </div>
+    <div style="font-size:7pt;color:#888;margin-top:4px;text-align:center">
+      💡 大宝和二宝周一三五 / 周二四六互换扫地系和洗碗系 &nbsp;|&nbsp; 周日轮流清理厕所 &nbsp;|&nbsp; 三宝负责收拾玩具
+    </div>
+  </div>
+
+  <!-- Daily checklist -->
+  <div class="rule-sec">
+    <div class="rule-sec-hd rsh-gen"><span>✅</span><span>每日必做清单（打印后手写勾选）</span></div>
+    <div class="rule-grid rule-grid-1" style="font-size:7pt">
+      <div class="rule-item"><div class="ri-num rn-mom">☐</div><div class="ri-txt"><b>妈妈：</b>早餐+午餐+晚餐 &nbsp;|&nbsp; 3 点前完成家务 &nbsp;|&nbsp; 3-6 点全程陪学 &nbsp;|&nbsp; 晚上单词抽查 &nbsp;|&nbsp; 周日周记/复盘</div></div>
+      <div class="rule-item"><div class="ri-num rn-k1">☐</div><div class="ri-txt"><b>大宝：</b>English 9 作业 &nbsp;|&nbsp; Chemistry 作业 &nbsp;|&nbsp; ELA 作业 &nbsp;|&nbsp; ELL 作业 &nbsp;|&nbsp; 单词 20-30 个 &nbsp;|&nbsp; Khan Math &nbsp;|&nbsp; 家务 &nbsp;|&nbsp; 22:00 熄灯</div></div>
+      <div class="rule-item"><div class="ri-num rn-k2">☐</div><div class="ri-txt"><b>二宝：</b>English 6+数学 作业 &nbsp;|&nbsp; 科学作业 &nbsp;|&nbsp; 三科笔记 &nbsp;|&nbsp; 单词 20 个 &nbsp;|&nbsp; Khan 数学 7 &nbsp;|&nbsp; 家务 &nbsp;|&nbsp; 22:00 熄灯</div></div>
+      <div class="rule-item"><div class="ri-num rn-k3">☐</div><div class="ri-txt"><b>三宝：</b>开心上学 &nbsp;|&nbsp; 收拾玩具 &nbsp;|&nbsp; 刷牙洗脸 &nbsp;|&nbsp; 按时午睡 &nbsp;|&nbsp; 安静活动不打扰哥哥 &nbsp;|&nbsp; 21:30 熄灯</div></div>
+    </div>
+  </div>
+
+  <!-- Rewards -->
+  <div class="rule-sec">
+    <div class="rule-sec-hd rsh-gen" style="background:linear-gradient(135deg,#f1c40f,#e67e22)"><span>🎁</span><span>奖励机制</span></div>
+    <div class="rew-grid">
+      <div class="rew-card rc-daily">
+        <div class="rc-icon">⭐</div>
+        <div class="rc-title">每日奖励</div>
+        <div class="rc-desc">
+          当天所有任务完成 ✅<br>
+          → 30 分钟自由时间（看书/游戏/聊天）<br>
+          或一个小零食/水果奖励
+        </div>
+      </div>
+      <div class="rew-card rc-weekly">
+        <div class="rc-icon">🌟</div>
+        <div class="rc-title">每周奖励</div>
+        <div class="rc-desc">
+          一周全勤完成 ✅<br>
+          → 周六家庭活动（公园/餐厅/电影）<br>
+          或买一本想要的书/小玩具
+        </div>
+      </div>
+      <div class="rew-card rc-monthly">
+        <div class="rc-icon">🏆</div>
+        <div class="rc-title">每月大奖</div>
+        <div class="rc-desc">
+          整月完成率 80%+<br>
+          → 一次家庭 outing（动物园/海滩/朋友聚会）<br>
+          或实现一个小心愿
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Consequences -->
+  <div class="rule-sec">
+    <div class="rule-sec-hd" style="background:linear-gradient(135deg,#636e72,#b2bec3)"><span>⚠️</span><span>未完成后果（温柔而坚定）</span></div>
+    <div class="rule-grid rule-grid-2" style="font-size:7.5pt">
+      <div class="rule-item"><div class="ri-num rn-gen" style="background:#636e72">1</div><div class="ri-txt"><b>作业没完成</b> → 第二天不能玩电脑/看电视，补完才能睡觉</div></div>
+      <div class="rule-item"><div class="ri-num rn-gen" style="background:#636e72">2</div><div class="ri-txt"><b>家务没做</b> → 周末补做 + 减少周末自由时间 30 分钟</div></div>
+      <div class="rule-item"><div class="ri-num rn-gen" style="background:#636e72">3</div><div class="ri-txt"><b>单词没背</b> → 第二天早起 15 分钟补背 + 再加 5 个</div></div>
+      <div class="rule-item"><div class="ri-num rn-gen" style="background:#636e72">4</div><div class="ri-txt"><b>顶嘴/不尊重</b> → 暂停沟通 10 分钟（各自冷静），冷静后妈妈再和你谈</div></div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    🌈 规则的意义不是惩罚，而是帮助孩子们建立自律。先严格执行 2 周，形成习惯后就会轻松很多！ &nbsp;|&nbsp; 妈妈加油！💕
+  </div>
+</div>
+
+</body>
+</html>

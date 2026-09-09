@@ -20,7 +20,7 @@ export default function ScrollHandler() {
 
     // Highlight nav on scroll
     const handleScroll = () => {
-      const sections = ['home', 'shanru', 'elsa-plan', 'elsa-tracker', 'elsa-counselor', 'javis', 'javis-tracker', 'sanbao', 'cyrus-tracker', 'gallery']
+      const sections = ['home', 'shanru', 'elsa-plan', 'elsa-tracker', 'elsa-counselor', 'javis', 'javis-tracker', 'sanbao', 'cyrus-tracker', 'family-rules', 'gallery']
       let current = 'home'
       sections.forEach((id) => {
         const el = document.getElementById(id)

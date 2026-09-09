@@ -19,6 +19,7 @@ const htmlContent = `
   <a href="#javis-tracker">📈 Javis 学习追踪</a>
   <a href="#sanbao">👶 Cyrus</a>
   <a href="#cyrus-tracker">🌱 Cyrus 成长小树</a>
+  <a href="#family-rules">📏 家庭规范</a>
   <a href="#gallery">📸 相册</a>
 </div>
 
@@ -311,6 +312,19 @@ const htmlContent = `
       title="Cyrus 成长小树"
     ></iframe>
   </div>
+</div>
+
+<!-- ========== FAMILY RULES ========== -->
+<div id="family-rules" class="section">
+  <div class="section-title"><span class="emoji">📏</span>家庭每日规范</div>
+  <p style="color: #666; margin-bottom: 12px; font-size: 0.9em;">
+    📋 家庭时间规划 + 行为规则 + 奖励机制。建议 A4 横向打印，贴在家里显眼位置。
+  </p>
+  <iframe
+    src="/family-rules.html"
+    style="width: 100%; height: 1600px; border: 1px solid #e0e0e0; border-radius: 12px;"
+    title="家庭每日规范"
+  ></iframe>
 </div>
 
 <!-- ========== GALLERY ========== -->
